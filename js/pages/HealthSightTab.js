@@ -11,6 +11,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList,RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import actions from '../actions';
+import HealthSightItem from '../common/HealthSightItem'
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -42,11 +43,12 @@ class HealthSightTab extends Component<Props> {
     renderItem(data){
         const item = data.item;
         return(
-            <View style={{marginBottom:10}}>
-                <Text style={{backgroundColor: '#faa'}}>
-                    {JSON.stringify(item)}
-                </Text>
-            </View>
+            <HealthSightItem
+                item={item}
+                onSelect={()=>{
+
+                }}
+            />
         );
     }
 

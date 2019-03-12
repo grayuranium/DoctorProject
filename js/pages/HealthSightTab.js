@@ -8,8 +8,9 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,RefreshControl} from 'react-native';
+import {Platform, StyleSheet, Text, View,FlatList,RefreshControl,ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
+import Toast from 'react-native-easy-toast';
 import actions from '../actions';
 import HealthSightItem from '../common/HealthSightItem'
 
@@ -19,6 +20,7 @@ const QUERY_STR = '&sort=stars';
 const REFRESH_TITLE_COLOR = 'red';
 const REFRESH_COLOR = 'red';
 const REFRESH_TINT_COLOR = 'red';
+const PAGE_SIZE = 10;
 class HealthSightTab extends Component<Props> {
     constructor(props){
         super(props);
@@ -27,13 +29,36 @@ class HealthSightTab extends Component<Props> {
     }
 
     componentDidMount(){
-        this.loadData();
+        this.loadData(false);
     }
 
-    loadData(){
-        const {onLoadHealthSightData} = this.props;
+    loadData(loadMore){
+        const {onLoadHealthSightData,onLoadMoreHealthSightData} = this.props;
+        const dataStore = this.getDataStore();
         const url = this.genFetchUrl(this.diseaseSortName);
-        onLoadHealthSightData(this.diseaseSortName,url);
+        if (loadMore){
+            //多次载入
+            onLoadMoreHealthSightData(this.diseaseSortName,++dataStore.pageIndex,PAGE_SIZE,dataStore.items,callback=>{
+                this.refs.toast.show('没有更多了');
+            });
+        }else {
+            //首次加载
+            onLoadHealthSightData(this.diseaseSortName,url,PAGE_SIZE);
+        }
+    }
+
+    getDataStore(){
+        const {healthsight} = this.props;
+        let dataStore = healthsight[this.diseaseSortName];
+        if(!dataStore){
+            dataStore = {
+                items:[],
+                isLoading:false,
+                projectModes:[],//要显示的数据
+                hideLoadingMore:true,
+            }
+        }
+        return dataStore;
     }
 
     genFetchUrl(key){
@@ -46,25 +71,26 @@ class HealthSightTab extends Component<Props> {
             <HealthSightItem
                 item={item}
                 onSelect={()=>{
-
+                    this.refs.toast.show(`您查看了${item.full_name}`);
                 }}
             />
         );
     }
 
+    genIndicator(){
+        return this.getDataStore().hideLoadingMore?null:
+            <View style={styles.indicatorContainer}>
+                <ActivityIndicator style={styles.indicator}/>
+                <Text>正在加载更多</Text>
+            </View>
+    }
+
     render() {
-        const {healthsight} = this.props;
-        let dataStore = healthsight[this.diseaseSortName];
-        if(!dataStore){
-            dataStore = {
-                items:[],
-                isLoading:false,
-            }
-        }
+        let dataStore = this.getDataStore();
         return (
             <View style={styles.container}>
                 <FlatList
-                    data={dataStore.items}
+                    data={dataStore.projectModes}
                     renderItem={data=>this.renderItem(data)}
                     keyExtractor={item=>item.id+""}
                     refreshControl={
@@ -73,11 +99,28 @@ class HealthSightTab extends Component<Props> {
                             titleColor={REFRESH_TITLE_COLOR}
                             colors={[REFRESH_COLOR]}
                             refreshing={dataStore.isLoading}
-                            onRefresh={()=>this.loadData()}
+                            onRefresh={()=>this.loadData(false)}
                             tintColor={REFRESH_TINT_COLOR}
                         />
                     }
+                    ListFooterComponent={()=>this.genIndicator()}
+                    onEndReached={()=>{
+                        console.log('----onEndReached----')
+                        //这里有个bug就是上拉一次多次触发这个方法,onMomentumScrollBegin也是为了解决这个Bug
+                        setTimeout(()=>{
+                            if (this.canLoadMore){
+                                this.loadData(true);
+                                this.canLoadMore=false;
+                            }
+                        },100);
+                    }}
+                    onEndReachedThreshold={0.5}
+                    onMomentumScrollBegin={()=>{
+                        this.canLoadMore = true;
+                        console.log('----onMomentumScrollBegin----')
+                    }}
                 />
+                <Toast ref={'toast'} position={'center'}/>
             </View>
         );
     }
@@ -88,7 +131,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch=>({
-    onLoadHealthSightData:(diseaseSortName,url)=>dispatch(actions.onLoadHealthSightData(diseaseSortName,url))
+    onLoadHealthSightData:(diseaseSortName,url,pageSize)=>dispatch(actions.onLoadHealthSightData(diseaseSortName,url,pageSize)),
+    onLoadMoreHealthSightData: (diseaseSortName,pageIndex,pageSize,dataArray,callBack)=>dispatch(actions.onLoadMoreHealthSightData(diseaseSortName,pageIndex,pageSize,dataArray,callBack)),
 });
 
 export const HealthSightTabWithRedux = connect(mapStateToProps,mapDispatchToProps)(HealthSightTab);
@@ -103,6 +147,13 @@ const styles = StyleSheet.create({
     welcome: {
         fontSize: 20,
         textAlign: 'center',
+        margin: 10,
+    },
+    indicatorContainer:{
+        alignItems: 'center',
+    },
+    indicator:{
+        color:'red',
         margin: 10,
     },
 });

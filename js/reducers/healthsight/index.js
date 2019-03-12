@@ -25,7 +25,10 @@ export default function (state = defaultState,action) {
                 [action.diseaseSortName]:{
                     ...state[action.diseaseSortName],
                     items:action.items,
+                    projectModes:action.projectModes,
                     isLoading:false,
+                    hideLoadingMore:false,
+                    pageIndex:action.pageIndex,
                 }
             };
         case Types.HEALTHSIGHT_REFRESH:
@@ -33,6 +36,7 @@ export default function (state = defaultState,action) {
                 ...state,
                 [action.diseaseSortName]:{
                     ...state[action.diseaseSortName],
+                    hideLoadingMore:true,
                     isLoading:true,
                 }
             };
@@ -45,6 +49,25 @@ export default function (state = defaultState,action) {
                     isLoading:false,
                 }
             };
+        case Types.HEALTHSIGHT_LOAD_MORE_SUCCESSFUL:
+            return{
+                ...state,
+                [action.diseaseSortName]:{
+                    ...state[action.diseaseSortName],
+                    projectModes:action.projectModes,
+                    hideLoadingMore:false,
+                    pageIndex:action.pageIndex,
+                }
+            };
+        case Types.HEALTHSIGHT_LOAD_MORE_FAILED:
+            return{
+                ...state,
+                [action.diseaseSortName]:{
+                    ...state[action.diseaseSortName],
+                    hideLoadingMore:true,
+                    pageIndex:action.pageIndex,
+                }
+            }
         default:
             return state;
     }

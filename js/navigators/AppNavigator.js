@@ -1,4 +1,4 @@
-import {createSwitchNavigator,createStackNavigator,createAppContainer} from 'react-navigation';
+import {createSwitchNavigator,createStackNavigator} from 'react-navigation';
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DoctorHomePage from "../pages/DoctorHomePage";

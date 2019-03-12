@@ -1,12 +1,13 @@
 import {createAppContainer,createMaterialTopTabNavigator} from 'react-navigation';
-import HealthSightTab from "../pages/HealthSightTab";
+import React, {Component} from 'react';
+import {HealthSightTabWithRedux} from "../pages/HealthSightTab";
 
 const TABS = {};
-const TAB_Names = ['儿科','内科','骨科','耳鼻喉科','妇科','外科'];
+const TAB_Names = ['java','python','android','django','妇科','外科'];
 
 TAB_Names.forEach((item,index)=>{
     TABS[`tab${index}`] = {
-        screen: HealthSightTab,
+        screen: props=><HealthSightTabWithRedux {...props} tabLabel={item}/>,
         navigationOptions:{
             title:item,
         },

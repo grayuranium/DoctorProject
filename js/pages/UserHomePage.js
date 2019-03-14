@@ -1,14 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {BackHandler} from 'react-native';
+import {NavigationActions} from 'react-navigation';
 import {BottomTabContainer} from '../navigators/BottomTabNavigator'
 
 type Props = {};
@@ -18,21 +10,28 @@ export default class UserHomePage extends Component<Props> {
         console.disableYellowBox = true;
     }
 
+    componentDidMount(): void {
+        BackHandler.addEventListener('hardwareBackPress',this.onBackPress);
+    }
+
+    componentWillUnmount(): void {
+        BackHandler.removeEventListener('hardwareBackPress',this.onBackPress);
+    }
+
+    /**
+     * 处理物理按键事件,返回homepage
+     * @returns {boolean}
+     */
+    onBackPress = ()=>{
+        const {nav} = this.props;
+        if (nav.routes[1].index===0){
+            return false;
+        }
+        this.props.navigation.dispatch(NavigationActions.back());
+        return true;
+    }
+
     render() {
         return <BottomTabContainer/>;
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-});

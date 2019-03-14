@@ -2,9 +2,11 @@ import {createSwitchNavigator,createStackNavigator} from 'react-navigation';
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DoctorHomePage from "../pages/DoctorHomePage";
-import UserHomePage from "../pages/UserHomePage";
 import {connect} from 'react-redux';
 import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
+import {DoctorCureNavContainer} from "./DoctorCureNavigator";
+import {HealthSightNavContainer} from "./HealthSightNavigator";
+import UserHomePage from "../pages/UserHomePage";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -21,29 +23,43 @@ const AppWelcomeNav = createStackNavigator({
     },
 })
 
-const AppHomeNav = createStackNavigator({
-    DoctorHome:{
-        screen:DoctorHomePage,
-        navigationOptions: {
-            header: null,
-        },
-    },
+const AppUserHomeNav = createStackNavigator({
     UserHome:{
         screen:UserHomePage,
         navigationOptions: {
             header: null,
         },
     },
+    HealthSight:{
+        screen:HealthSightNavContainer,
+    },
+    DoctorCure:{
+        screen:DoctorCureNavContainer,
+    },
 },{
     initialRouteName: 'UserHome',
+})
+
+const AppDoctorHomeNav = createStackNavigator({
+    DoctorHome:{
+        screen:DoctorHomePage,
+        navigationOptions: {
+            header: null,
+        },
+    },
+},{
+    initialRouteName: 'DoctorHome',
 })
 
 export const AppNav = createSwitchNavigator({
     AppWelcome:{
         screen:AppWelcomeNav,
     },
-    AppHome:{
-        screen:AppHomeNav,
+    AppUserHome:{
+        screen:AppUserHomeNav,
+    },
+    AppDoctorHome:{
+        screen:AppDoctorHomeNav,
     },
 },{
     initialRouteName:'AppWelcome',

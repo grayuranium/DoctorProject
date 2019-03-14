@@ -12,13 +12,21 @@ import {Platform, StyleSheet, Text, View,Button} from 'react-native';
 
 type Props = {};
 export default class LoginPage extends Component<Props> {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         const {navigation} = this.props;
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>Welcome to DoctorProject!</Text>
                 <Button title={'login'} onPress={()=>{
-                    navigation.navigate('AppHome');
+                    if (true){
+                        navigation.navigate('AppUserHome');
+                    } else {
+                        navigation.navigate('AppDoctorHome');
+                    }
                 }}/>
                 <Button title={'register'} onPress={()=>{
                     navigation.navigate('Register');

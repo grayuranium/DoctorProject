@@ -9,16 +9,15 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import {TopTabContainer} from '../navigators/TopTabNavigator';
 
 type Props = {};
-export default class HealthSightPage extends Component<Props> {
-    constructor(props){
-        super(props);
-    }
-
+export default class HealthSightDetail extends Component<Props> {
     render() {
-        return <TopTabContainer/>;
+        return (
+            <View style={styles.container}>
+                <Text style={styles.welcome}>Welcome to HealthSightDetail!</Text>
+            </View>
+        );
     }
 }
 

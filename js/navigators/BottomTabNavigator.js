@@ -1,9 +1,9 @@
 import {createBottomTabNavigator,createAppContainer} from 'react-navigation';
 import React, {Component} from 'react';
-import DoctorCurePage from "../pages/DoctorCurePage";
-import HealthSightPage from "../pages/HealthSightPage";
-import HealthReportPage from "../pages/HealthReportPage";
-import MyInfoPage from "../pages/MyInfoPage";
+import DoctorCurePage from "../pages/DoctorCure/DoctorCurePage";
+import HealthSightPage from "../pages/HealthSight/HealthSightPage";
+import HealthReportPage from "../pages/HealthReport/HealthReportPage";
+import MyInfoPage from "../pages/MyInfo/MyInfoPage";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
@@ -46,4 +46,6 @@ const Tabs = {
     },
 };
 
-export const BottomTabContainer = createAppContainer(createBottomTabNavigator(Tabs));
+export const BottomTabContainer = createAppContainer(createBottomTabNavigator(Tabs,{
+    initialRouteName: 'DoctorCurePage',
+}));

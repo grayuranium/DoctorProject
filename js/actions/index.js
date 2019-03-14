@@ -1,6 +1,11 @@
 import {onLoadHealthSightData,onLoadMoreHealthSightData} from './healthsight'
+import {onLoadDoctorCureData,onLoadMoreDoctorCureData} from './doctorcure'
 
 export default {
-    onLoadHealthSightData,//加载健康圈列表
-    onLoadMoreHealthSightData,//健康圈列表上拉刷新
+    //healsight_action
+    onLoadHealthSightData,
+    onLoadMoreHealthSightData,
+    //doctorcure_list_action
+    onLoadDoctorCureData,
+    onLoadMoreDoctorCureData,
 }

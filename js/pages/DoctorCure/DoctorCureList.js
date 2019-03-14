@@ -1,31 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,FlatList,RefreshControl,ActivityIndicator} from 'react-native';
-import {connect} from 'react-redux';
+import {ActivityIndicator, Platform, StyleSheet, Text, View,FlatList,RefreshControl} from 'react-native';
+import actions from "../../actions";
+import {connect} from "react-redux";
 import Toast from 'react-native-easy-toast';
-import actions from '../actions';
-import HealthSightItem from '../common/HealthSightItem'
+import DoctorCureListItem from '../../common/DoctorCureListItem'
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
+const PAGE_SIZE = 10;
 const REFRESH_TITLE_COLOR = 'red';
 const REFRESH_COLOR = 'red';
 const REFRESH_TINT_COLOR = 'red';
-const PAGE_SIZE = 10;
-class HealthSightTab extends Component<Props> {
+class DoctorCureList extends Component<Props> {
     constructor(props){
         super(props);
-        const {tabLabel} = this.props;
-        this.diseaseSortName = tabLabel;
+        const {officeName} = this.props.navigation.state.params;
+        this.officeName = officeName;
     }
 
     componentDidMount(){
@@ -33,23 +24,23 @@ class HealthSightTab extends Component<Props> {
     }
 
     loadData(loadMore){
-        const {onLoadHealthSightData,onLoadMoreHealthSightData} = this.props;
+        const {onLoadDoctorCureData,onLoadMoreDoctorCureData} = this.props;
         const dataStore = this.getDataStore();
-        const url = this.genFetchUrl(this.diseaseSortName);
+        const url = this.genFetchUrl(this.officeName);
         if (loadMore){
             //多次载入
-            onLoadMoreHealthSightData(this.diseaseSortName,++dataStore.pageIndex,PAGE_SIZE,dataStore.items,callback=>{
+            onLoadMoreDoctorCureData(this.officeName,++dataStore.pageIndex,PAGE_SIZE,dataStore.items,callback=>{
                 this.refs.toast.show('没有更多了');
             });
         }else {
             //首次加载
-            onLoadHealthSightData(this.diseaseSortName,url,PAGE_SIZE);
+            onLoadDoctorCureData(this.officeName,url,PAGE_SIZE);
         }
     }
 
     getDataStore(){
-        const {healthsight} = this.props;
-        let dataStore = healthsight[this.diseaseSortName];
+        const {doctorcure} = this.props;
+        let dataStore = doctorcure[this.officeName];
         if(!dataStore){
             dataStore = {
                 items:[],
@@ -67,11 +58,12 @@ class HealthSightTab extends Component<Props> {
 
     renderItem(data){
         const item = data.item;
+        const {navigation} = this.props;
         return(
-            <HealthSightItem
+            <DoctorCureListItem
                 item={item}
                 onSelect={()=>{
-                    this.refs.toast.show(`您查看了${item.full_name}`);
+                    navigation.navigate('DoctorCureDetail');
                 }}
             />
         );
@@ -127,15 +119,15 @@ class HealthSightTab extends Component<Props> {
 }
 
 const mapStateToProps = (state) => ({
-    healthsight: state.healthsight,
+    doctorcure: state.doctorcure,
 });
 
 const mapDispatchToProps = dispatch=>({
-    onLoadHealthSightData:(diseaseSortName,url,pageSize)=>dispatch(actions.onLoadHealthSightData(diseaseSortName,url,pageSize)),
-    onLoadMoreHealthSightData: (diseaseSortName,pageIndex,pageSize,dataArray,callBack)=>dispatch(actions.onLoadMoreHealthSightData(diseaseSortName,pageIndex,pageSize,dataArray,callBack)),
+    onLoadDoctorCureData:(officeName,url,pageSize)=>dispatch(actions.onLoadDoctorCureData(officeName,url,pageSize)),
+    onLoadMoreDoctorCureData: (officeName,pageIndex,pageSize,dataArray,callBack)=>dispatch(actions.onLoadMoreDoctorCureData(officeName,pageIndex,pageSize,dataArray,callBack)),
 });
 
-export const HealthSightTabWithRedux = connect(mapStateToProps,mapDispatchToProps)(HealthSightTab);
+export const DoctorCureListWithRedux = connect(mapStateToProps,mapDispatchToProps)(DoctorCureList);
 
 const styles = StyleSheet.create({
     container: {

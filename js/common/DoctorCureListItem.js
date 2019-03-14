@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View,TouchableOpacity,Text,Image,StyleSheet} from 'react-native';
 
 type Props = {};
-export default class HealthSightItem extends Component<Props> {
+export default class DoctorCureListItem extends Component<Props> {
     render() {
         const {item} = this.props;
         if (!item||!item.owner) return null;

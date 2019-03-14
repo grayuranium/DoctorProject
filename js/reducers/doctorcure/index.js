@@ -3,7 +3,7 @@ import Types from '../../actions/types'
 const defaultState = {};
 /**
  * state树
- * healthsight_state:{
+ * doctorcure_state:{
  *     java:{
  *         item:[],
  *         isloading:false,
@@ -19,11 +19,11 @@ const defaultState = {};
  */
 export default function (state = defaultState,action) {
     switch (action.type) {
-        case Types.HEALTHSIGHT_LOAD_SUCCESSFUL:
+        case Types.DOCTORCURE_LIST_LOAD_SUCCESSFUL:
             return{
                 ...state,
-                [action.diseaseSortName]:{
-                    ...state[action.diseaseSortName],
+                [action.officeName]:{
+                    ...state[action.officeName],
                     items:action.items,
                     projectModes:action.projectModes,
                     isLoading:false,
@@ -31,39 +31,39 @@ export default function (state = defaultState,action) {
                     pageIndex:action.pageIndex,
                 }
             };
-        case Types.HEALTHSIGHT_REFRESH:
+        case Types.DOCTORCURE_LIST_REFRESH:
             return{
                 ...state,
-                [action.diseaseSortName]:{
-                    ...state[action.diseaseSortName],
+                [action.officeName]:{
+                    ...state[action.officeName],
                     hideLoadingMore:true,
                     isLoading:true,
                 }
             };
-        case Types.HEALTHSIGHT_LOAD_FAILED:
+        case Types.DOCTORCURE_LIST_LOAD_FAILED:
             return{
                 ...state,
-                [action.diseaseSortName]:{
-                    ...state[action.diseaseSortName],
+                [action.officeName]:{
+                    ...state[action.officeName],
                     error:action.error,
                     isLoading:false,
                 }
             };
-        case Types.HEALTHSIGHT_LOAD_MORE_SUCCESSFUL:
+        case Types.DOCTORCURE_LIST_LOAD_MORE_SUCCESSFUL:
             return{
                 ...state,
-                [action.diseaseSortName]:{
-                    ...state[action.diseaseSortName],
+                [action.officeName]:{
+                    ...state[action.officeName],
                     projectModes:action.projectModes,
                     hideLoadingMore:false,
                     pageIndex:action.pageIndex,
                 }
             };
-        case Types.HEALTHSIGHT_LOAD_MORE_FAILED:
+        case Types.DOCTORCURE_LIST_LOAD_MORE_FAILED:
             return{
                 ...state,
-                [action.diseaseSortName]:{
-                    ...state[action.diseaseSortName],
+                [action.officeName]:{
+                    ...state[action.officeName],
                     hideLoadingMore:true,
                     pageIndex:action.pageIndex,
                 }

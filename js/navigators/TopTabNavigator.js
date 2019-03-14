@@ -1,6 +1,6 @@
 import {createAppContainer,createMaterialTopTabNavigator} from 'react-navigation';
 import React, {Component} from 'react';
-import {HealthSightTabWithRedux} from "../pages/HealthSightTab";
+import {HealthSightTabWithRedux} from "../pages/HealthSight/HealthSightTab";
 
 const TABS = {};
 const TAB_Names = ['java','python','android','django','妇科','外科'];

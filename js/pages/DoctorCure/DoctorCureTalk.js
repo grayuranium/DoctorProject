@@ -12,10 +12,16 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 
 type Props = {};
 export default class DoctorCureTalk extends Component<Props> {
+    constructor(props){
+        super(props);
+        const {doctorId} = this.props.navigation.state.params;
+        this.doctorId = doctorId;
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>Welcome to HealthSightDetail!</Text>
+                <Text style={styles.welcome}>Welcome to {this.doctorId}!</Text>
             </View>
         );
     }

@@ -1,5 +1,5 @@
 import {onLoadHealthSightData,onLoadMoreHealthSightData} from './healthsight'
-import {onLoadDoctorCureData,onLoadMoreDoctorCureData} from './doctorcure'
+import {onLoadDoctorCureData,onLoadMoreDoctorCureData,onShowDoctorCureDetail} from './doctorcure'
 
 export default {
     //healsight_action

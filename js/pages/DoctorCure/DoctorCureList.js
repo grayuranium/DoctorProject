@@ -63,7 +63,7 @@ class DoctorCureList extends Component<Props> {
             <DoctorCureListItem
                 item={item}
                 onSelect={()=>{
-                    navigation.navigate('DoctorCureDetail');
+                    navigation.navigate('DoctorCureDetail',{doctorId:item.id,officeName:this.officeName});
                 }}
             />
         );

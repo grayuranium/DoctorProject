@@ -31,8 +31,10 @@ export default class NavigationUtil {
             console.log('navigation can not be null!');
             return;
         }
-        navigation.navigate(page,{
-            ...props
-        });
+        if (props){
+            navigation.navigate(page,props);
+        }else {
+            navigation.navigate(page);
+        }
     }
 }

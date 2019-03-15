@@ -4,6 +4,7 @@ import actions from "../../actions";
 import {connect} from "react-redux";
 import Toast from 'react-native-easy-toast';
 import DoctorCureListItem from '../../common/DoctorCureListItem'
+import NavigationUtil from "../../utils/NavigationUtil";
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -58,12 +59,11 @@ class DoctorCureList extends Component<Props> {
 
     renderItem(data){
         const item = data.item;
-        const {navigation} = this.props;
         return(
             <DoctorCureListItem
                 item={item}
                 onSelect={()=>{
-                    navigation.navigate('DoctorCureDetail',{doctorId:item.id,officeName:this.officeName});
+                    NavigationUtil.GoPage({doctorId:item.id,officeName:this.officeName},'DoctorCureDetail')
                 }}
             />
         );

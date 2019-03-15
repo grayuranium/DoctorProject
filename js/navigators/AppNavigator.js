@@ -4,9 +4,11 @@ import RegisterPage from "../pages/RegisterPage";
 import DoctorHomePage from "../pages/DoctorHomePage";
 import {connect} from 'react-redux';
 import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
-import {DoctorCureNavContainer} from "./DoctorCureNavigator";
-import {HealthSightNavContainer} from "./HealthSightNavigator";
 import UserHomePage from "../pages/UserHomePage";
+import HealthSightDetail from "../pages/HealthSight/HealthSightDetail";
+import {DoctorCureListWithRedux} from "../pages/DoctorCure/DoctorCureList";
+import {DoctorCureDetailWithRedux} from "../pages/DoctorCure/DoctorCureDetail";
+import DoctorCureTalk from "../pages/DoctorCure/DoctorCureTalk";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -30,11 +32,17 @@ const AppUserHomeNav = createStackNavigator({
             header: null,
         },
     },
-    HealthSight:{
-        screen:HealthSightNavContainer,
+    HealthSightDetail:{
+        screen:HealthSightDetail,
     },
-    DoctorCure:{
-        screen:DoctorCureNavContainer,
+    DoctorCureList:{
+        screen: DoctorCureListWithRedux,
+    },
+    DoctorCureDetail:{
+        screen:DoctorCureDetailWithRedux,
+    },
+    DoctorCureTalk:{
+        screen:DoctorCureTalk,
     },
 },{
     initialRouteName: 'UserHome',

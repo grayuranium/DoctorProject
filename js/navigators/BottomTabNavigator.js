@@ -1,10 +1,10 @@
 import {createBottomTabNavigator,createAppContainer} from 'react-navigation';
 import React, {Component} from 'react';
-import DoctorCurePage from "../pages/DoctorCure/DoctorCurePage";
 import HealthSightPage from "../pages/HealthSight/HealthSightPage";
 import HealthReportPage from "../pages/HealthReport/HealthReportPage";
 import MyInfoPage from "../pages/MyInfo/MyInfoPage";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import DoctorCurePage from "../pages/DoctorCure/DoctorCurePage";
 
 
 const Tabs = {

@@ -10,6 +10,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {connect} from "react-redux";
+import NavigationUtil from "../../utils/NavigationUtil";
 
 type Props = {};
 class DoctorCureDetail extends Component<Props> {
@@ -49,7 +50,7 @@ class DoctorCureDetail extends Component<Props> {
             <View style={styles.container}>
                 <Text style={styles.welcome}>{doctorDetail}</Text>
                 <Text style={styles.welcome} onPress={()=>{
-                    navigation.navigate('DoctorCureTalk',{doctorId:this.doctorId});
+                    NavigationUtil.GoPage({doctorData:doctorData},'DoctorCureTalk');
                 }}>开始问诊</Text>
             </View>
         );

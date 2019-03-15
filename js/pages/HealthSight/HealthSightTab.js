@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
 import actions from '../../actions';
 import HealthSightItem from '../../common/HealthSightItem'
+import NavigationUtil from "../../utils/NavigationUtil";
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -58,12 +59,11 @@ class HealthSightTab extends Component<Props> {
 
     renderItem(data){
         const item = data.item;
-        const {navigation} = this.props;
         return(
             <HealthSightItem
                 item={item}
                 onSelect={()=>{
-                    navigation.navigate('HealthSightDetail');
+                    NavigationUtil.GoPage(null,'HealthSightDetail');
                 }}
             />
         );

@@ -1,24 +1,16 @@
 import React, {Component} from 'react';
-import {BackHandler} from 'react-native';
-import {NavigationActions} from 'react-navigation';
 import {BottomTabContainer} from '../navigators/BottomTabNavigator'
+import {NavigationActions} from "react-navigation";
+import BackPressComponent from "../common/BackPressComponent";
 import NavigationUtil from "../utils/NavigationUtil";
 
 type Props = {};
 export default class UserHomePage extends Component<Props> {
     constructor(props){
         super(props);
-        console.disableYellowBox = true;
         const {navigation} = this.props;
         NavigationUtil.navigation = navigation;
-    }
-
-    componentDidMount(): void {
-        BackHandler.addEventListener('hardwareBackPress',this.onBackPress);
-    }
-
-    componentWillUnmount(): void {
-        BackHandler.removeEventListener('hardwareBackPress',this.onBackPress);
+        this.backPress = new BackPressComponent({backPress:this.onBackPress});
     }
 
     /**

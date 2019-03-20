@@ -9,6 +9,8 @@ import HealthSightDetail from "../pages/HealthSight/HealthSightDetail";
 import {DoctorCureListWithRedux} from "../pages/DoctorCure/DoctorCureList";
 import {DoctorCureDetailWithRedux} from "../pages/DoctorCure/DoctorCureDetail";
 import DoctorCureTalk from "../pages/DoctorCure/DoctorCureTalk";
+import HealthReportForm from "../pages/HealthReport/HealthReportForm";
+import HealthReportShow from "../pages/HealthReport/HealthReportShow";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -34,15 +36,36 @@ const AppUserHomeNav = createStackNavigator({
     },
     HealthSightDetail:{
         screen:HealthSightDetail,
+        navigationOptions: {
+            header: null,
+        },
     },
     DoctorCureList:{
         screen: DoctorCureListWithRedux,
+        navigationOptions: {
+            header: null,
+        },
     },
     DoctorCureDetail:{
         screen:DoctorCureDetailWithRedux,
+        navigationOptions: {
+            header: null,
+        },
     },
     DoctorCureTalk:{
         screen:DoctorCureTalk,
+    },
+    HealthReportForm:{
+        screen:HealthReportForm,
+        navigationOptions: {
+            header: null,
+        },
+    },
+    HealthReportShow:{
+        screen:HealthReportShow,
+        navigationOptions: {
+            header: null,
+        },
     },
 },{
     initialRouteName: 'UserHome',

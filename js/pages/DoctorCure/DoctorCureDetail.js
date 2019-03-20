@@ -11,6 +11,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {connect} from "react-redux";
 import NavigationUtil from "../../utils/NavigationUtil";
+import NaviBar from 'react-native-pure-navigation-bar';
 
 type Props = {};
 class DoctorCureDetail extends Component<Props> {
@@ -47,11 +48,16 @@ class DoctorCureDetail extends Component<Props> {
         const {navigation} = this.props;
         let doctorDetail = doctorData.description;
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>{doctorDetail}</Text>
-                <Text style={styles.welcome} onPress={()=>{
-                    NavigationUtil.GoPage({doctorData:doctorData},'DoctorCureTalk');
-                }}>开始问诊</Text>
+            <View style={{flex: 1}}>
+                <NaviBar
+                    title='医生信息'
+                />
+                <View style={styles.container}>
+                    <Text style={styles.welcome}>{doctorDetail}</Text>
+                    <Text style={styles.welcome} onPress={()=>{
+                        NavigationUtil.GoPage({doctorData:doctorData},'DoctorCureTalk');
+                    }}>开始问诊</Text>
+                </View>
             </View>
         );
     }

@@ -28,7 +28,7 @@ export default class UserHomePage extends Component<Props> {
     onBackPress = ()=>{
         const {nav} = this.props;
         if (nav.routes[1].index===0){
-            return false;
+            return false;//这里有BUG
         }
         this.props.navigation.dispatch(NavigationActions.back());
         return true;

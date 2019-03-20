@@ -3,6 +3,7 @@ import {Platform, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import DoctorCureItem from '../../common/DoctorCureItem'
 import Toast from 'react-native-easy-toast';
 import NavigationUtil from "../../utils/NavigationUtil";
+import DoctorCureListItem from "../../common/DoctorCureListItem";
 
 type Props = {};
 const OFFICE_NAME = ['Java','儿科','皮肤性病科','内科','男科','产科','外科','中医科','骨伤科','精神心理科','口腔颌面科','眼科','耳鼻咽喉科','肿瘤及防治科','整形美容科','营养科'];

@@ -2,7 +2,7 @@ import {createBottomTabNavigator,createAppContainer} from 'react-navigation';
 import React, {Component} from 'react';
 import HealthSightPage from "../pages/HealthSight/HealthSightPage";
 import HealthReportPage from "../pages/HealthReport/HealthReportPage";
-import MyInfoPage from "../pages/MyInfo/MyInfoPage";
+import UserInfoPage from "../pages/UserInfo/UserInfoPage";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DoctorCurePage from "../pages/DoctorCure/DoctorCurePage";
 
@@ -36,7 +36,7 @@ const Tabs = {
         }
     },
     MyInfoPage:{
-        screen:MyInfoPage,
+        screen:UserInfoPage,
         navigationOptions: {
             tabBarLabel:'我的',
             tabBarIcon:(tintColor,focused)=>(

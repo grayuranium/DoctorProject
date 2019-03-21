@@ -4931,6 +4931,13 @@ react-native-lightbox@^0.7.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-parallax-scroll-view@^0.21.3:
+  version "0.21.3"
+  resolved "http://registry.npm.taobao.org/react-native-parallax-scroll-view/download/react-native-parallax-scroll-view-0.21.3.tgz#d956ad224ce3b0a2725b80574bcbf688bbeda14e"
+  integrity sha1-2VatIkzjsKJyW4BXS8v2iLvtoU4=
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-parsed-text@^0.0.20:
   version "0.0.20"
   resolved "http://registry.npm.taobao.org/react-native-parsed-text/download/react-native-parsed-text-0.0.20.tgz#7bd35fec88c3ca0eb0e8250a98e24092b4ee7fef"

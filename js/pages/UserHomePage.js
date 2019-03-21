@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BottomTabContainer} from '../navigators/BottomTabNavigator'
 import {NavigationActions} from "react-navigation";
-import BackPressComponent from "../common/BackPressComponent";
+import BackPressComponent from "../common/Components/BackPressComponent";
 import NavigationUtil from "../utils/NavigationUtil";
 
 type Props = {};
@@ -11,6 +11,14 @@ export default class UserHomePage extends Component<Props> {
         const {navigation} = this.props;
         NavigationUtil.navigation = navigation;
         this.backPress = new BackPressComponent({backPress:this.onBackPress});
+    }
+
+    componentDidMount(){
+        this.backPress.componentDidMount();
+    }
+
+    componentWillUnmount(){
+        this.backPress.componentWillUnmount();
     }
 
     /**

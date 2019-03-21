@@ -10,11 +10,11 @@ export default class BackPressComponent{
         this.props = props;
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         if (this.props.backPress){BackHandler.addEventListener('hardwareBackPress',this._hardwareBackPress);}
     }
 
-    componentWillUnmount(): void {
+    componentWillUnmount() {
         if (this.props.backPress){BackHandler.removeEventListener('hardwareBackPress',this._hardwareBackPress);}
     }
 

@@ -7,7 +7,8 @@ export default class NavigationUtil {
      * @param navigation
      * @constructor
      */
-    static BackToHomePage(navigation){
+    static BackToHomePage(pros){
+        const {navigation} = pros;
         navigation.navigate('AppHome')
     }
 

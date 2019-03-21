@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Modal,ViewPropTypes,View,StatusBar,StyleSheet,Text,Platform,TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import TimeSpan from '../model/TimeSpan'
+import TimeSpan from '../../model/TimeSpan'
 export const TimeSpans = [new TimeSpan('今天','since=daily'),new TimeSpan('本周','since=daily'),new TimeSpan('本月','since=daily')];
 
 /**

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Image, TextInput,TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image, TextInput,TouchableOpacity,Button} from 'react-native';
 import Toast from 'react-native-easy-toast';
 
 
@@ -13,6 +13,8 @@ export default class LoginPage extends  Component {
             password:'',
             isError:false,
             errorMsg:'',
+            msgLogin:false,
+            loginMsg:'',
         };
     }
 
@@ -22,18 +24,52 @@ export default class LoginPage extends  Component {
         navigation.navigate('AppUserHome');
     }
 
+    sendMsgToLogin(){
+        this.refs.toast.show('验证码已发送');
+    }
+
     render() {
+        const {navigation} = this.props;
         return (
             <View style={styles.container}>
-                <Image source={{uri:'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',}} style={styles.iconStyle}/>
+                <Image
+                    source={{uri:'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',}}
+                    style={styles.iconStyle}
+                />
                 <View style={styles.textInputContainer}>
-                    <TextInput onChangeText={text=>this.setState({account:text})} underlineColorAndroid={'transparent'} style={styles.textInputStyle} placeholder={'请输入账号'}/>
+                    <TextInput
+                        onChangeText={text=>this.setState({account:text})}
+                        underlineColorAndroid={'transparent'}
+                        style={styles.textInputStyle}
+                        placeholder={'请输入账号'}
+                    />
                     <Text style={styles.label}>账号</Text>
                 </View>
-                <View style={[styles.textInputContainer,{marginTop:10}]}>
-                    <TextInput onChangeText={text=>this.setState({password:text})} underlineColorAndroid={'transparent'} style={styles.textInputStyle} placeholder={'请输入密码'} password={true}/>
+                {this.state.msgLogin?
+                    <View style={[styles.textInputContainer,{marginTop:10}]}>
+                    <TextInput
+                        onChangeText={text=>this.setState({loginMsg:text})}
+                        underlineColorAndroid={'transparent'}
+                        style={[styles.textInputStyle,{paddingLeft: 8,}]}
+                        placeholder={'请输入验证码'}
+                    />
+                        <TouchableOpacity onPress={()=>this.sendMsgToLogin()}>
+                            <View style={styles.msgLoginBtn}>
+                                <Text style={{fontSize:18,marginLeft:8,marginRight:8}}>发送验证码</Text>
+                            </View>
+                        </TouchableOpacity>
+                        {/*<Button style={styles.msgLoginBtn} title={'验证码'} onPress={()=>this.sendMsgToLogin()}/>*/}
+                </View>:
+                    <View style={[styles.textInputContainer,{marginTop:10}]}>
+                    <TextInput
+                        onChangeText={text=>this.setState({password:text})}
+                        underlineColorAndroid={'transparent'}
+                        style={styles.textInputStyle}
+                        placeholder={'请输入密码'}
+                        password={true}
+                    />
                     <Text style={styles.label}>密码</Text>
-                </View>
+                </View>}
                 <TouchableOpacity onPress={()=>this.login()}>
                     <View style={styles.loginBtnStyle}>
                             <Text style={{color:'white'}}>登录</Text>
@@ -41,11 +77,21 @@ export default class LoginPage extends  Component {
                 </TouchableOpacity>
                 <View style={styles.settingStyle}>
                     <Text>忘记密码？</Text>
-                    <Text>新用户</Text>
+                    <TouchableOpacity onPress={()=>{
+                        navigation.navigate('Register');
+                    }}>
+                        <Text>新用户</Text>
+                    </TouchableOpacity>
                 </View>
-                <View style={[styles.settingStyle,{justifyContent:'center',marginTop:100,}]}>
-                    <Text style={{fontSize:15,color:'blue'}}>使用短信验证码登录</Text>
-                </View>
+                <View style={styles.errorShow}></View>
+                <TouchableOpacity
+                    onPress={()=>this.setState((prevState)=>{
+                    return {msgLogin:!prevState.msgLogin,}
+                })}>
+                    <View style={[styles.settingStyle,{justifyContent:'center'}]}>
+                        <Text style={{fontSize:15,color:'blue'}}>{this.state.msgLogin?'使用密码登录':'使用短信验证码登录'}</Text>
+                    </View>
+                </TouchableOpacity>
                 {/*<View style={styles.otherLoginStyle}>*/}
                     {/*<Text>其他登录方式</Text>*/}
                     {/*<Image source={{uri:'https://pbs.twimg.com/profile_images/2694242404/5b0619220a92d391534b0cd89bf5adc1_400x400.jpeg',}} style={styles.otherImageStyle}></Image>*/}
@@ -79,6 +125,13 @@ const styles = StyleSheet.create({
         top: 12,
         fontSize:18,
         fontWeight:'500'
+    },
+    msgLoginBtn:{
+        flex:1,
+        margin:8,
+        borderRadius:8,
+        backgroundColor:'skyblue',
+        justifyContent:'center',
     },
     textInputContainer:{
         marginLeft:0.1*WINDOW_WIDTH,
@@ -124,5 +177,8 @@ const styles = StyleSheet.create({
         height:50,
         borderRadius:25,
         marginLeft:10,
+    },
+    errorShow:{
+        height:0.3*WINDOW_WIDTH,
     },
 });

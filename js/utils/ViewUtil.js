@@ -42,7 +42,7 @@ export default class ViewUtil {
     }
 
     /**
-     * 用户信息栏的Item
+     * 条形设置的Item
      * @param callBack
      * @param text
      * @param color
@@ -82,6 +82,41 @@ export default class ViewUtil {
     static getUserMenuItem(callBack,menu,color,expandableIcon){
         return ViewUtil.getSettingItem(callBack,menu.name,color,menu.Icons,menu.icon,expandableIcon);
     }
+
+    /**
+     * 网格布局的Item
+     * @param callBack
+     * @param text
+     * @param color
+     * @param Icons
+     * @param icon
+     * @returns {*}
+     */
+    static getGridItem(callBack,text,color,Icons,icon){
+        return <View style={{flex:1}}>
+            <TouchableOpacity onPress={callBack}>
+                <View style={styles.cell_container}>
+                    <View style={styles.icon_container}>
+                        {Icons&&icon?<Icons name={icon} size={30} style={{color:'blue'}}/>:<View style={{opacity: 1,width:26,height:26}}/>}
+                    </View>
+                    <View style={styles.title_container}>
+                        <Text style={styles.title}>{text}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View>;
+    }
+
+    /**
+     * 封装menu对象的医生科室选择的Item
+     * @param callBack
+     * @param menu
+     * @param color
+     * @returns {*}
+     */
+    static  getDoctorOfficeMenuItem(callBack,menu,color){
+        return ViewUtil.getGridItem(callBack,menu.name,color,menu.Icons,menu.icon);
+    }
 }
 
 const styles = StyleSheet.create({
@@ -92,5 +127,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:'space-between',
         flexDirection: 'row',
+    },
+    cell_container: {
+        backgroundColor:'white',
+        margin:10,
+        width:70,
+        borderRadius:8,
+    },
+    icon_container: {
+        flex:0.8,
+        backgroundColor: 'white',
+        justifyContent:'center',
+        alignItems:'center',
+        padding:3,
+    },
+    title_container:{
+        flex:0.2,
+        justifyContent:'center',
+        alignItems:'center',
+        padding:3,
+    },
+    title: {
+        fontSize: 10,
+        color: '#212121',
     },
 })

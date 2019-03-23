@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     iconStyle:{
-        width:80,
-        height:80,
+        width:120,
+        height:120,
         marginTop:100,
-        borderRadius:40,
+        borderRadius:60,
         borderWidth:2,
         borderColor:'orange',
         marginBottom:30,

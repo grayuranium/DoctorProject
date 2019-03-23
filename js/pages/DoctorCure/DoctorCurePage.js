@@ -5,7 +5,6 @@ import Swiper from 'react-native-swiper';
 import NavigationUtil from "../../utils/NavigationUtil";
 import {DOCTOR_OFFICE_MENU} from "../../res/data/DoctorOfficeMenuData";
 import ViewUtil from "../../utils/ViewUtil";
-import NavigationBar from "../../common/Components/NavigationBar";
 
 type Props = {};
 const {width,height} = Dimensions.get('window');

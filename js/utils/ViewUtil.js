@@ -97,7 +97,7 @@ export default class ViewUtil {
             <TouchableOpacity onPress={callBack}>
                 <View style={styles.cell_container}>
                     <View style={styles.icon_container}>
-                        {Icons&&icon?<Icons name={icon} size={30} style={{color:'blue'}}/>:<View style={{opacity: 1,width:26,height:26}}/>}
+                        {Icons&&icon?<Icons name={icon} size={30} style={{color:color||'blue'}}/>:<View style={{opacity: 1,width:26,height:26}}/>}
                     </View>
                     <View style={styles.title_container}>
                         <Text style={styles.title}>{text}</Text>
@@ -114,8 +114,8 @@ export default class ViewUtil {
      * @param color
      * @returns {*}
      */
-    static  getDoctorOfficeMenuItem(callBack,menu,color){
-        return ViewUtil.getGridItem(callBack,menu.name,color,menu.Icons,menu.icon);
+    static  getDoctorOfficeMenuItem(callBack,menu){
+        return ViewUtil.getGridItem(callBack,menu.name,menu.color,menu.Icons,menu.icon);
     }
 }
 

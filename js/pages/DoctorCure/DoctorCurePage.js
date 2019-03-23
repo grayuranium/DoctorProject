@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View,FlatList} from 'react-native';
+import {StyleSheet, Text, View,FlatList,Dimensions,Image} from 'react-native';
 import Toast from 'react-native-easy-toast';
+import Swiper from 'react-native-swiper';
 import NavigationUtil from "../../utils/NavigationUtil";
 import {DOCTOR_OFFICE_MENU} from "../../res/data/DoctorOfficeMenuData";
 import ViewUtil from "../../utils/ViewUtil";
+import NavigationBar from "../../common/Components/NavigationBar";
 
 type Props = {};
-
+const {width,height} = Dimensions.get('window');
 export default class DoctorCurePage extends Component<Props> {
     constructor(props) {
         super(props);
@@ -18,14 +20,30 @@ export default class DoctorCurePage extends Component<Props> {
     }
 
     renderItem(item){
-        return ViewUtil.getDoctorOfficeMenuItem(()=>this.onClick(item),item,null);
+        return ViewUtil.getDoctorOfficeMenuItem(()=>this.onClick(item),item);
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.page_title}>
-                    <Text style={styles.page_title_font}>请选择您想咨询的科室！</Text>
+                <Swiper
+                    height={0.3*height}
+                    style={styles.wrapper}
+                    showsButtons={true}
+                    autoplay={true}
+                >
+                    <View style={styles.slide}>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper1.jpg')}/>
+                    </View>
+                    <View style={styles.slide}>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper2.jpg')}/>
+                    </View>
+                    <View style={styles.slide}>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper3.jpg')}/>
+                    </View>
+                </Swiper>
+                <View style={{backgroundColor:'#DEEDED',height:30,alignItems: 'center',justifyContent: 'center',borderRadius:20, margin:5}}>
+                    <Text style={{color:'black',}}>请选择您要问诊的科室</Text>
                 </View>
                 <View style={styles.grade_container}>
                     <FlatList
@@ -48,32 +66,20 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    page_title:{
-        flex:1,
-        backgroundColor: '#678',
-    },
-    page_title_font:{
-        fontSize:20,
-        marginTop:6,
-        marginBottom:6,
-    },
     grade_container:{
-        flex:8,
         backgroundColor: '#F5FCFF',
         padding:10,
     },
-    row_container:{
-        flex:0.25,
-        flexDirection:'row',
-        backgroundColor: '#F5FCFF',
-        paddingLeft:10,
-        paddingRight:10,
-        paddingBottom:5,
-        paddingTop:5,
+    wrapper: {
+    },
+    slide:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB',
+    },
+    swiper_img:{
+        flex: 1,
+        width:width,
     },
 });

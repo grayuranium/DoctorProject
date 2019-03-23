@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         bottom:0,
     },
     container:{
-        backgroundColor:'#2196f3',
+        backgroundColor:'#789',
     },
     title:{
         fontSize:20,

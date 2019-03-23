@@ -3,8 +3,8 @@ import {Platform, StyleSheet, Text, View,FlatList,RefreshControl,ActivityIndicat
 import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
 import actions from '../../actions';
-import HealthSightItem from '../../common/HealthSightItem'
 import NavigationUtil from "../../utils/NavigationUtil";
+import ViewUtil from "../../utils/ViewUtil";
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -57,16 +57,12 @@ class HealthSightTab extends Component<Props> {
         return URL+key+QUERY_STR;
     }
 
-    renderItem(data){
-        const item = data.item;
-        return(
-            <HealthSightItem
-                item={item}
-                onSelect={()=>{
-                    NavigationUtil.GoPage(null,'HealthSightDetail');
-                }}
-            />
-        );
+    renderItem(item){
+        return ViewUtil.getListItem(()=>this.onClick(item),item);
+    }
+
+    onClick(item){
+        NavigationUtil.GoPage(null,'HealthSightDetail');
     }
 
     genIndicator(){
@@ -83,7 +79,7 @@ class HealthSightTab extends Component<Props> {
             <View style={styles.container}>
                 <FlatList
                     data={dataStore.projectModes}
-                    renderItem={data=>this.renderItem(data)}
+                    renderItem={({item})=>this.renderItem(item)}
                     keyExtractor={item=>item.id+""}
                     refreshControl={
                         <RefreshControl

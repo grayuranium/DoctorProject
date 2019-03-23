@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {TouchableOpacity,View,Text,StyleSheet} from 'react-native';
+import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -117,6 +117,39 @@ export default class ViewUtil {
     static  getDoctorOfficeMenuItem(callBack,menu){
         return ViewUtil.getGridItem(callBack,menu.name,menu.color,menu.Icons,menu.icon);
     }
+
+    /**
+     * 封装列表Item
+     * @param callBack
+     * @param item
+     * @returns {*}
+     */
+    static getListItem(callBack,item){
+        if (!item||!item.owner) return null;
+        return <TouchableOpacity
+            onPress={callBack}
+        >
+            <View style={styles.list_cell_container}>
+                <Text style={styles.list_title}>
+                    {item.full_name}
+                </Text>
+                <Text style={styles.list_description}>
+                    {item.description}
+                </Text>
+                <View style={styles.list_row}>
+                    <Text>Author:</Text>
+                    <Image
+                        style={{height:22,width:22}}
+                        source={{uri:item.owner.avatar_url}}
+                    />
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                    <Text>Start:</Text>
+                    <Text>{item.stargazers_count}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>;
+    }
 }
 
 const styles = StyleSheet.create({
@@ -150,5 +183,35 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 10,
         color: '#212121',
+    },
+    list_cell_container:{
+        backgroundColor:'white',
+        padding:10,
+        marginLeft:5,
+        marginRight:5,
+        marginVertical:3,
+        borderColor:'#dddddd',
+        borderWidth:0.5,
+        borderRadius:2,
+        shadowColor:'gray',//IOS添加阴影效果
+        shadowOffset:{width: 0.5,height: 0.5},
+        shadowOpacity:0.4,
+        shadowRadius:1,
+        elevation: 2,//android添加阴影效果
+    },
+    list_row:{
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems:'center',
+    },
+    list_title:{
+        fontSize:16,
+        marginBottom:2,
+        color:'#212121',
+    },
+    list_description:{
+        fontSize: 14,
+        marginBottom: 2,
+        color:'#212121',
     },
 })

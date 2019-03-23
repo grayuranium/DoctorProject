@@ -3,9 +3,9 @@ import {ActivityIndicator, Platform, StyleSheet, Text, View,FlatList,RefreshCont
 import actions from "../../actions";
 import {connect} from "react-redux";
 import Toast from 'react-native-easy-toast';
-import DoctorCureListItem from '../../common/DoctorCureListItem'
 import NavigationUtil from "../../utils/NavigationUtil";
 import NaviBar from 'react-native-pure-navigation-bar';
+import ViewUtil from "../../utils/ViewUtil";
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -58,16 +58,12 @@ class DoctorCureList extends Component<Props> {
         return URL+key+QUERY_STR;
     }
 
-    renderItem(data){
-        const item = data.item;
-        return(
-            <DoctorCureListItem
-                item={item}
-                onSelect={()=>{
-                    NavigationUtil.GoPage({doctorId:item.id,officeName:this.officeName},'DoctorCureDetail')
-                }}
-            />
-        );
+    renderItem(item){
+        return ViewUtil.getListItem(()=>this.onClick(item),item);
+    }
+
+    onClick(item){
+        NavigationUtil.GoPage({doctorId:item.id,officeName:this.officeName},'DoctorCureDetail');
     }
 
     genIndicator(){
@@ -88,7 +84,7 @@ class DoctorCureList extends Component<Props> {
                 <View style={styles.container}>
                     <FlatList
                         data={dataStore.projectModes}
-                        renderItem={data=>this.renderItem(data)}
+                        renderItem={({item})=>this.renderItem(item)}
                         keyExtractor={item=>item.id+""}
                         refreshControl={
                             <RefreshControl

@@ -183,6 +183,17 @@ export default class ViewUtil {
             </View>
         </TouchableOpacity>
     }
+
+    /**
+     * 分隔线
+     * @returns {*}
+     */
+    static getSeparator(title){
+        return <View style={{width:width,height:25,backgroundColor:'#B7D8D8',paddingTop: 5,paddingBottom: 5,
+            margin:5,justifyContent:'center',flexDirection:'row',alignItems:'center'}}>
+            <Text style={{fontSize:20,fontWeight: '400'}}>{title}</Text>
+        </View>;
+    }
 }
 
 const styles = StyleSheet.create({

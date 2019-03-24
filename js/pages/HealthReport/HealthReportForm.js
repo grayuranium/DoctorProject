@@ -1,5 +1,16 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View,Button,TextInput,ScrollView,TouchableWithoutFeedback,TouchableOpacity} from 'react-native';
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    Button,
+    TextInput,
+    ScrollView,
+    TouchableWithoutFeedback,
+    TouchableOpacity,
+    Dimensions
+} from 'react-native';
 import {RadioButtons} from 'react-native-radio-buttons';
 import {HueSlider} from 'react-native-color';
 import tinycolor from 'tinycolor2';
@@ -7,6 +18,7 @@ import ImagePicker  from 'react-native-image-picker';
 import NaviBar from 'react-native-pure-navigation-bar';
 import Toast from 'react-native-easy-toast';
 import DataUploadUtil from "../../utils/DataUploadUtil";
+import ViewUtil from "../../utils/ViewUtil";
 
 type Props = {};
 const EAT_BREAKFAST_OPTIONS = ['吃了','没吃'];
@@ -30,6 +42,7 @@ const imgOptions = {
         path:'images',
     },
 };
+const {width,height} = Dimensions.get('window');
 export default class HealthReportForm extends Component<Props> {
     constructor(props){
         super(props);
@@ -56,7 +69,7 @@ export default class HealthReportForm extends Component<Props> {
     }
 
     renderRadioOption = (option, selected, onSelect, index)=>{
-        const style = selected ? { fontWeight: 'bold', marginRight:50, fontSize:20} : {marginRight:50, fontSize:20};
+        const style = selected ? { fontWeight: 'bold', marginRight:50, fontSize:16} : {marginRight:50, fontSize:16};
 
         return (
             <TouchableWithoutFeedback onPress={onSelect} key={index}>
@@ -66,7 +79,7 @@ export default class HealthReportForm extends Component<Props> {
     }
 
     renderMultipleRadioOption = (option, selected, onSelect, index)=>{
-        const style = selected ? { fontWeight: 'bold', marginRight:10, fontSize:20} : {marginRight:10, fontSize:20};
+        const style = selected ? { fontWeight: 'bold', marginRight:10, fontSize:16} : {marginRight:10, fontSize:16};
 
         return (
             <TouchableWithoutFeedback onPress={onSelect} key={index}>
@@ -76,7 +89,7 @@ export default class HealthReportForm extends Component<Props> {
     }
 
     renderRadioContainer = optionsNodes=>{
-        return <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',}}>{optionsNodes}</View>;
+        return <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginLeft:100,}}>{optionsNodes}</View>;
     }
 
     openCamera = ()=>{
@@ -98,6 +111,68 @@ export default class HealthReportForm extends Component<Props> {
         });
     }
 
+    //渲染输入框格式的列表项
+    onInputItemRender(title,measure,key){
+        return <View style={styles.item_container}>
+            <Text style={styles.item_label}>{title}</Text>
+            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
+                [key]:text,}
+            )}/>
+            <Text style={styles.item_measure}>{measure}</Text>
+        </View>;
+    }
+
+    //渲染双选选择框格式的列表项
+    onRadioItemRender(title,options,key){
+        return <View style={styles.item_container}>
+            <Text style={styles.item_label}>{title}</Text>
+            <View style={styles.item_radio_btn}>
+                <RadioButtons
+                    options={options}
+                    onSelection={(selectedOption)=>{
+                        if (selectedOption===options[0]) {
+                            this.setState({
+                                [key]:true,
+                            });
+                        }else {
+                            this.setState({
+                                [key]:false,
+                            });
+                        }
+                    }}
+                    selectedOption={this.state[key]?options[0]:options[1]}
+                    renderOption={this.renderRadioOption}
+                    renderContainer={this.renderRadioContainer}
+                />
+            </View>
+        </View>;
+    }
+
+    //渲染多选选择框格式的列表项
+    onMultipleRadioItemRender(title,options,key,){
+        return <View style={styles.item_container}>
+            <Text style={styles.item_label}>{title}</Text>
+            <View style={styles.item_radio_btn}>
+                <RadioButtons
+                    options={options}
+                    onSelection={(selectedOption)=>{
+                        for(let i=0;i<options.length;i++){
+                            if (selectedOption===options[i]){
+                                this.setState({
+                                    [key]:i,
+                                });
+                                break;
+                            }
+                        }
+                    }}
+                    selectedOption={options[this.state[key]]}
+                    renderOption={this.renderMultipleRadioOption}
+                    renderContainer={this.renderRadioContainer}
+                />
+            </View>
+        </View>;
+    }
+
     render() {
         return (
             <View style={{flex: 1}}>
@@ -106,228 +181,14 @@ export default class HealthReportForm extends Component<Props> {
                 />
                 <View style={styles.container}>
                     <ScrollView>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>体重：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                weight:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>kg</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>身高：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                height:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>cm</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>食物热量：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                foodCalory:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>kCal</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>水摄入量：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                waterOfCup:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>杯</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>睡眠时间：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                sleepHour:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>h</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>运动步数：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                sportsStep:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>步</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>排便次数：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                dabianTimes:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>次</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>疲劳次数：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                tireTimes:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>次</Text>
-                        </View>
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>叹气次数：</Text>
-                            <TextInput style={styles.item_input} onChangeText={text=>this.setState({
-                                sighTimes:text,}
-                            )}/>
-                            <Text style={styles.item_measure}>次</Text>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>按时早饭：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={EAT_BREAKFAST_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        if (selectedOption===EAT_BREAKFAST_OPTIONS[0]) {
-                                            this.setState({
-                                                eatBreakfastOption:true,
-                                            });
-                                        }else {
-                                            this.setState({
-                                                eatBreakfastOption:false,
-                                            });
-                                        }
-                                    }}
-                                    selectedOption={this.state.eatBreakfastOption?EAT_BREAKFAST_OPTIONS[0]:EAT_BREAKFAST_OPTIONS[1]}
-                                    renderOption={this.renderRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>皮肤肤质：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={SKIN_DRY_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        if (selectedOption===SKIN_DRY_OPTIONS[0]) {
-                                            this.setState({
-                                                skinDryOption:true,
-                                            });
-                                        }else {
-                                            this.setState({
-                                                skinDryOption:false,
-                                            });
-                                        }
-                                    }}
-                                    selectedOption={this.state.skinDryOption?SKIN_DRY_OPTIONS[0]:SKIN_DRY_OPTIONS[1]}
-                                    renderOption={this.renderRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>焦虑度：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={NERVEROUS_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        if (selectedOption===NERVEROUS_OPTIONS[0]) {
-                                            this.setState({
-                                                nerverousOption:true,
-                                            });
-                                        }else {
-                                            this.setState({
-                                                nerverousOption:false,
-                                            });
-                                        }
-                                    }}
-                                    selectedOption={this.state.nerverousOption?NERVEROUS_OPTIONS[0]:NERVEROUS_OPTIONS[1]}
-                                    renderOption={this.renderRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>敏感度：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={SETIMANT_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        if (selectedOption===SETIMANT_OPTIONS[0]) {
-                                            this.setState({
-                                                sentimantOption:true,
-                                            });
-                                        }else {
-                                            this.setState({
-                                                sentimantOption:false,
-                                            });
-                                        }
-                                    }}
-                                    selectedOption={this.state.sentimantOption?SETIMANT_OPTIONS[0]:SETIMANT_OPTIONS[1]}
-                                    renderOption={this.renderRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>出汗量：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={SWEAT_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        for(let i=0;i<SWEAT_OPTIONS.length;i++){
-                                            if (selectedOption===SWEAT_OPTIONS[i]){
-                                                this.setState({
-                                                    sweatOption:i,
-                                                });
-                                                break;
-                                            }
-                                        }
-                                    }}
-                                    selectedOption={SWEAT_OPTIONS[this.state.sweatOption]}
-                                    renderOption={this.renderMultipleRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>身体状况：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={BODY_STATES_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        for(let i=0;i<BODY_STATES_OPTIONS.length;i++){
-                                            if (selectedOption===BODY_STATES_OPTIONS[i]){
-                                                this.setState({
-                                                    bodyStatesOption:i,
-                                                });
-                                                break;
-                                            }
-                                        }
-                                    }}
-                                    selectedOption={BODY_STATES_OPTIONS[this.state.bodyStatesOption]}
-                                    renderOption={this.renderMultipleRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
-                        <View style={styles.item_container}>
-                            <Text style={styles.item_label}>心情：</Text>
-                            <View style={styles.item_radio_btn}>
-                                <RadioButtons
-                                    options={SENCE_STATES_OPTIONS}
-                                    onSelection={(selectedOption)=>{
-                                        for(let i=0;i<SENCE_STATES_OPTIONS.length;i++){
-                                            if (selectedOption===SENCE_STATES_OPTIONS[i]){
-                                                this.setState({
-                                                    senceStatesOption:i,
-                                                });
-                                                break;
-                                            }
-                                        }
-                                    }}
-                                    selectedOption={SENCE_STATES_OPTIONS[this.state.senceStatesOption]}
-                                    renderOption={this.renderMultipleRadioOption}
-                                    renderContainer={this.renderRadioContainer}
-                                />
-                            </View>
-                        </View>
-
+                        {ViewUtil.getSeparator('基础指标')}
+                        {this.onInputItemRender('体重：','kg','weight')}
+                        {this.onInputItemRender('身高：','cm','height')}
+                        {ViewUtil.getSeparator('体质指标')}
+                        {this.onInputItemRender('食物热量：','kCal','foodCalory')}
+                        {this.onInputItemRender('运动步数：','步','sportsStep')}
+                        {this.onRadioItemRender('皮肤肤质：',SKIN_DRY_OPTIONS,'skinDryOption')}
+                        {this.onMultipleRadioItemRender('出汗量：',SWEAT_OPTIONS,'sweatOption')}
                         <View style={styles.item_container}>
                             <Text style={styles.item_label}>尿色：</Text>
                             <HueSlider style={styles.item_color_slider} gradientSteps={40} onValueChange={h=>{
@@ -340,46 +201,61 @@ export default class HealthReportForm extends Component<Props> {
                                 this.setState({ color: { ...this.state.lipColor, h } });
                             }} value={this.state.lipColor.h}/>
                         </View>
+                        {ViewUtil.getSeparator('每日习惯')}
+                        {this.onInputItemRender('水摄入量：','杯','waterOfCup')}
+                        {this.onInputItemRender('睡眠时间：','h','sleepHour')}
+                        {this.onInputItemRender('排便次数：','次','dabianTimes')}
+                        {this.onRadioItemRender('按时早饭：',EAT_BREAKFAST_OPTIONS,'eatBreakfastOption')}
                         <View style={styles.item_container}>
                             <Text style={styles.item_label}>排便：</Text>
                             <TouchableOpacity style={styles.item_img_uploader} onPress={()=>this.openCamera()}>
-                                <Text style={{fontSize:20}}>上传图片</Text>
+                                <Text style={{fontSize:16}}>上传图片</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.item_container}>
                             <Text style={styles.item_label}>排尿：</Text>
                             <TouchableOpacity style={styles.item_img_uploader} onPress={()=>this.openCamera()}>
-                                <Text style={{fontSize:20}}>上传图片</Text>
+                                <Text style={{fontSize:16}}>上传图片</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.item_container}>
-                            <Button style={styles.item_upload_btn} title={'提交'} onPress={()=>{
-                                // let data = {
-                                //     weight:this.state.weight,
-                                //     height:this.state.height,
-                                //     foodCalory:this.state.foodCalory,
-                                //     waterOfCup:this.state.waterOfCup,
-                                //     sleepHour:this.state.sleepHour,
-                                //     sportsStep:this.state.sportsStep,
-                                //     dabianTimes:this.state.dabianTimes,
-                                //     tireTimes:this.state.tireTimes,
-                                //     sighTimes:this.state.sighTimes,
-                                //     eatBreakfastOption:this.state.eatBreakfastOption,
-                                //     skinDryOption:this.state.skinDryOption,
-                                //     nerverousOption:this.state.nerverousOption,
-                                //     sentimantOption:this.state.sentimantOption,
-                                //     sweatOption:this.state.sweatOption,
-                                //     bodyStatesOption:this.state.bodyStatesOption,
-                                //     senceStatesOption:this.state.senceStatesOption,
-                                //     urineColor: (new tinycolor(this.state.urineColor)).toHsvString(),
-                                //     lipColor: (new tinycolor(this.state.lipColor)).toHsvString(),
-                                // };
-                                // if (DataUploadUtil.uploadHealthData(data,URL)){
-                                //     this.refs.toast.show('上传成功');
-                                // }
-                                this.refs.toast.show('上传成功');
-                            }}/>
-                        </View>
+                        {ViewUtil.getSeparator('心态健康')}
+                        {this.onInputItemRender('疲劳次数：','次','tireTimes')}
+                        {this.onInputItemRender('叹气次数：','次','sighTimes')}
+                        {this.onRadioItemRender('焦虑度：',NERVEROUS_OPTIONS,'nerverousOption')}
+                        {this.onRadioItemRender('敏感度：',SETIMANT_OPTIONS,'sentimantOption')}
+                        {ViewUtil.getSeparator('主观评价')}
+                        {this.onMultipleRadioItemRender('身体状况：',BODY_STATES_OPTIONS,'bodyStatesOption')}
+                        {this.onMultipleRadioItemRender('心情：',SENCE_STATES_OPTIONS,'senceStatesOption')}
+                        <TouchableOpacity onPress={()=>{
+                            // let data = {
+                            //     weight:this.state.weight,
+                            //     height:this.state.height,
+                            //     foodCalory:this.state.foodCalory,
+                            //     waterOfCup:this.state.waterOfCup,
+                            //     sleepHour:this.state.sleepHour,
+                            //     sportsStep:this.state.sportsStep,
+                            //     dabianTimes:this.state.dabianTimes,
+                            //     tireTimes:this.state.tireTimes,
+                            //     sighTimes:this.state.sighTimes,
+                            //     eatBreakfastOption:this.state.eatBreakfastOption,
+                            //     skinDryOption:this.state.skinDryOption,
+                            //     nerverousOption:this.state.nerverousOption,
+                            //     sentimantOption:this.state.sentimantOption,
+                            //     sweatOption:this.state.sweatOption,
+                            //     bodyStatesOption:this.state.bodyStatesOption,
+                            //     senceStatesOption:this.state.senceStatesOption,
+                            //     urineColor: (new tinycolor(this.state.urineColor)).toHsvString(),
+                            //     lipColor: (new tinycolor(this.state.lipColor)).toHsvString(),
+                            // };
+                            // if (DataUploadUtil.uploadHealthData(data,URL)){
+                            //     this.refs.toast.show('上传成功');
+                            // }
+                            this.refs.toast.show('上传成功');
+                        }}>
+                            <View style={[styles.item_container,{justifyContent:'center', margin:5,borderRadius: 40,backgroundColor:'blue'}]}>
+                                <Text style={{fontSize:18,color:'white'}}>提交</Text>
+                            </View>
+                        </TouchableOpacity>
                     </ScrollView>
                 </View>
                 <Toast ref={'toast'} position={'center'}/>
@@ -397,7 +273,16 @@ const styles = StyleSheet.create({
     },
     item_container:{
         flex:1,
+        height:50,
         flexDirection:'row',
+        alignItems:'center',
+        paddingLeft:15,
+        paddingRight:15,
+        paddingTop:2,
+        paddingBottom:2,
+        margin:3,
+        borderRadius:10,
+        backgroundColor: 'white',
     },
     item_uploader_container:{
         flex:1,
@@ -406,19 +291,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     item_label:{
-        flex:0.3,
-        fontSize:20,
+        width:0.25*width,
+        fontSize:16,
+        fontWeight:'300',
         textAlign: 'left',
         textAlignVertical:'center',
     },
     item_input:{
-        flex:0.6,
-        fontSize:20,
+        width:0.25*width,
+        fontSize:16,
     },
     item_measure:{
-        flex:0.1,
-        fontSize:20,
-        textAlign: 'right',
+        fontSize:16,
+        textAlign: 'left',
         textAlignVertical:'center',
     },
     item_radio_btn:{
@@ -430,13 +315,11 @@ const styles = StyleSheet.create({
     },
     item_color_slider:{
         flex:0.7,
+        marginLeft: 40,
     },
     item_img_uploader:{
         flex:0.7,
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    item_upload_btn:{
-        flex:1,
     },
 });

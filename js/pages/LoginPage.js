@@ -71,7 +71,7 @@ export default class LoginPage extends  Component {
                     <Text style={styles.label}>密码</Text>
                 </View>}
                 <TouchableOpacity onPress={()=>this.login()}>
-                    <View style={styles.loginBtnStyle}>
+                    <View style={[styles.loginBtnStyle,{borderRadius:40}]}>
                             <Text style={{color:'white'}}>登录</Text>
                     </View>
                 </TouchableOpacity>

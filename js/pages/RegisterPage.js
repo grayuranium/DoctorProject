@@ -34,8 +34,34 @@ export default class RegisterPage extends Component<Props> {
     }
 
     onRegister(){
-        const {navigation} = this.props;
-        navigation.navigate('AppUserHome');
+        // const {navigation} = this.props;
+        // navigation.navigate('AppUserHome');
+        let postData = {
+            uname:this.state.userName,
+            ugender:this.state.userGender,
+            uaccid:this.state.userPhone,
+            upwd:this.state.userPsw,
+            uphonenum:this.state.userPhone,
+            usomatotypes:0,
+            ubirthday:this.state.userDate,
+            uheadpho:0,
+        };
+        fetch('http://192.168.43.116:8080/EfficientDr/userRegister',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(postData),
+        }).then((response)=>{
+            if (response.ok){
+                return response.json();
+            }
+            throw new Error ('Network response was not ok.')
+        }).then((responseData)=>{
+            this.refs.toast.show('OK');
+        }).catch((error)=>{
+            this.refs.toast.show('ERROR');
+        })
     }
 
     render() {

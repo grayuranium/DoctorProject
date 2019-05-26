@@ -20,7 +20,7 @@ const AppWelcomeNav = createStackNavigator({
         },
     },
     Register:{
-        screen: RegisterPage,
+        screen:RegisterPage,
         navigationOptions: {
             header: null,
         },

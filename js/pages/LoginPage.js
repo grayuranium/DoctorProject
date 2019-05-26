@@ -20,8 +20,34 @@ export default class LoginPage extends  Component {
 
     login(){
         //需要根据redux设计工具类
+        // const {navigation} = this.props;
+        // navigation.navigate('AppUserHome');
+        //type:0-用户 1-医生
         const {navigation} = this.props;
-        navigation.navigate('AppUserHome');
+        let postData = {
+            accid:this.state.account,
+            pwd:this.state.password,
+            type:'0',
+        };
+        let json_data = JSON.stringify(postData)
+        fetch('http://192.168.43.116:8080/EfficientDr/login',{
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json;charset=UTF-8',
+            },
+            body:json_data,
+        }).then((response)=>{
+            if (response.ok){
+                return response.json();
+            }
+            throw new Error ('Network response was not ok.')
+        }).then((responseData)=>{
+            navigation.navigate('AppUserHome');
+            this.refs.toast.show('OK');
+        }).catch((error)=>{
+            this.refs.toast.show(error.toString());
+        })
     }
 
     sendMsgToLogin(){

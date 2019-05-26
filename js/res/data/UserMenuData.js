@@ -21,6 +21,6 @@ export const USER_MENU = {
  * @type {{User_Information: *[], Style_Change: Array}}
  */
 export const USER_CHILD_MENU = {
-    User_Information:[{name:'用户名',}, {name:'年龄',}, {name:'性别',}, {name:'工作',}, {name:'手机号',},],
+    User_Information:[{name:'用户名',}, {name:'年龄',}, {name:'性别',}, {name:'手机号',},],
     Style_Change:[],
 }

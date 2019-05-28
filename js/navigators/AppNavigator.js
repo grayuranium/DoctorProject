@@ -11,6 +11,7 @@ import {DoctorCureDetailWithRedux} from "../pages/DoctorCure/DoctorCureDetail";
 import DoctorCureTalk from "../pages/DoctorCure/DoctorCureTalk";
 import HealthReportForm from "../pages/HealthReport/HealthReportForm";
 import HealthReportShow from "../pages/HealthReport/HealthReportShow";
+import RegisterPage_Doctor from "../pages/RegisterPage_Doctor";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -22,6 +23,12 @@ const AppWelcomeNav = createStackNavigator({
     Register:{
         screen:RegisterPage,
         navigationOptions: {
+            header: null,
+        },
+    },
+    Register_Doctor:{
+        screen:RegisterPage_Doctor,
+        navigationOptions:{
             header: null,
         },
     },

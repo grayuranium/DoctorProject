@@ -7,7 +7,7 @@ import NavigationUtil from "../../utils/NavigationUtil";
 import ViewUtil from "../../utils/ViewUtil";
 
 type Props = {};
-const URL = 'https://api.github.com/search/repositories?q=';
+const URL = 'http://192.168.1.10:8080/EfficientDr/userGetHealthCircleVerif?department=';
 const QUERY_STR = '&sort=stars';
 const REFRESH_TITLE_COLOR = 'red';
 const REFRESH_COLOR = 'red';
@@ -54,7 +54,7 @@ class HealthSightTab extends Component<Props> {
     }
 
     genFetchUrl(key){
-        return URL+key+QUERY_STR;
+        return URL+key;
     }
 
     renderItem(item){

@@ -6,7 +6,7 @@ import DatePicker from 'react-native-datepicker'
 type Props = {};
 const GENDER = ['女','男'];
 const {width,height} = Dimensions.get('window');
-export default class RegisterPage extends Component<Props> {
+export default class RegisterPage_Doctor extends Component<Props> {
     constructor(props){
         super(props);
         this.state = {
@@ -89,7 +89,7 @@ export default class RegisterPage extends Component<Props> {
                             style={styles.textInputStyle}
                             placeholder={'请输入姓名'}
                         />
-                        <Text style={styles.label}>姓名</Text>
+                        <Text style={styles.label}>哈哈</Text>
                     </View>
                     <View style={[styles.item_container,{height:50}]}>
                         <Text style={{fontSize:18,fontWeight:'500',marginLeft:18}}>性别</Text>

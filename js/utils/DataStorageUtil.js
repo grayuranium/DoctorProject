@@ -51,21 +51,24 @@ export default class DataStore {
      * @returns {Promise<any> | Promise<*>}
      */
     fetchNetData(url){
+        let cookie = AsyncStorage.getItem('http://192.168.1.10/');
         return new Promise((resolve,reject)=>{
-            fetch(url)
-                .then((response)=>{
+            fetch(url,{
+                credentials:'include',
+                headers:{
+                    Cookie:cookie,
+                },
+            }).then((response)=>{
                     if (response.ok){
                         return response.json();
                     }
                     throw new Error ('Network response was not ok.')
-                })
-                .then((responseData)=>{
+            }).then((responseData)=>{
                     this.saveData(url,responseData);
                     resolve(responseData);
-                })
-                .catch((error)=>{
+            }).catch((error)=>{
                     reject(error);
-                })
+            })
         })
     }
 

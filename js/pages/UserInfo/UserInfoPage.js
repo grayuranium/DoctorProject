@@ -126,10 +126,6 @@ export default class UserInfoPage extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black'
-    },
     background: {
         position: 'absolute',
         top: 0,

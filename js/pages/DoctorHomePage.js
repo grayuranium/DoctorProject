@@ -14,7 +14,7 @@ type Props = {};
 export default class DoctorHomePage extends Component<Props> {
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{justifyContent: 'center',}]}>
                 <Text style={styles.welcome}>Welcome to DoctorHomePage!</Text>
             </View>
         );
@@ -24,7 +24,6 @@ export default class DoctorHomePage extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

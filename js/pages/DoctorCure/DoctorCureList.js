@@ -81,7 +81,7 @@ class DoctorCureList extends Component<Props> {
                 <NaviBar
                     title='医生列表'
                 />
-                <View style={styles.container}>
+                <View style={[styles.container,{justifyContent: 'center',}]}>
                     <FlatList
                         data={dataStore.projectModes}
                         renderItem={({item})=>this.renderItem(item)}
@@ -134,7 +134,6 @@ export const DoctorCureListWithRedux = connect(mapStateToProps,mapDispatchToProp
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

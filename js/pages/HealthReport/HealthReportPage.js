@@ -34,7 +34,7 @@ export default class HealthReportPage extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{}]}>
                 <View style={styles.title_container}>
                     <Text style={styles.title_text}>健康体检</Text>
                     <View style={styles.title_area}>
@@ -51,7 +51,6 @@ export default class HealthReportPage extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

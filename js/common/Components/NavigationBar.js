@@ -66,7 +66,7 @@ export default class NavigationBar extends Component{
             </View>;
 
         return(
-            <View style={[styles.container,this.props.style]}>
+            <View style={[styles.NavigationBarContainer,this.props.style]}>
                 {statusBar}
                 {content}
             </View>
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         top:0,
         bottom:0,
     },
-    container:{
+    NavigationBarContainer:{
         backgroundColor:'#789',
     },
     title:{

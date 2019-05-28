@@ -24,7 +24,7 @@ export default class DoctorCurePage extends Component<Props> {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.doctorCureContainer}>
                 <Swiper
                     height={0.3*height}
                     style={styles.wrapper}
@@ -60,7 +60,7 @@ export default class DoctorCurePage extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    doctorCureContainer: {
         flex: 1,
         flexDirection:'column',
         backgroundColor: '#F5FCFF',

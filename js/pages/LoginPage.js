@@ -225,21 +225,15 @@ const styles = StyleSheet.create({
         borderRadius:8,
     },
     textInputStyle:{
-        // flex:1,
         height:50,
-        // backgroundColor:'white',
-        // fontSize:18,
         paddingVertical: 0,
         paddingLeft:20,
-        // borderRadius:8,
     },
     loginBtnStyle:{
         height:40,
         width:WINDOW_WIDTH*0.8,
-        // backgroundColor:'blue',
         marginTop:20,
         marginBottom:10,
-        //flex布局
         justifyContent:'center',
         alignItems:'center',
         borderRadius:8

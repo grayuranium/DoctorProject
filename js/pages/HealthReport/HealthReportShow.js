@@ -52,7 +52,7 @@ export default class HealthReportShow extends Component<Props> {
                 <NaviBar
                     title={this.renderTitleView()}
                 />
-                <View style={styles.container}>
+                <View style={[styles.container,{justifyContent: 'center',}]}>
                     <Text style={styles.welcome}>welcome to HealthReportShow!</Text>
                 </View>
                 {this.renderDialog()}
@@ -64,7 +64,6 @@ export default class HealthReportShow extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

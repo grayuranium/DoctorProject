@@ -36,7 +36,7 @@ export default class HealthReportShowDialog extends Component{
                 onRequestClose={()=>onClose}
             >
                 <TouchableOpacity
-                    style={styles.container}
+                    style={styles.HealthReportShowContainer}
                     onPress={()=>this.dismiss()}
                 >
                     <MaterialIcons
@@ -68,7 +68,7 @@ export default class HealthReportShowDialog extends Component{
 }
 
 const styles = StyleSheet.create({
-    container:{
+    HealthReportShowContainer:{
         backgroundColor:'rgba(0,0,0,0.6)',
         flex:1,
         alignItems:'center',

@@ -43,7 +43,7 @@ class DoctorCureDetail extends Component<Props> {
                 <NaviBar
                     title='医生信息'
                 />
-                <View style={styles.container}>
+                <View style={[styles.container,{justifyContent: 'center',}]}>
                     <Text style={styles.welcome}>{doctorDetail}</Text>
                     <Text style={styles.welcome} onPress={()=>{
                         NavigationUtil.GoPage({doctorData:doctorData},'DoctorCureTalk');
@@ -63,7 +63,6 @@ export const DoctorCureDetailWithRedux = connect(mapStateToProps)(DoctorCureDeta
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

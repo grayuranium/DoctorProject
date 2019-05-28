@@ -17,7 +17,7 @@ export default class HealthSightDetail extends Component<Props> {
                 <NaviBar
                     title='详情'
                 />
-                <View style={styles.container}>
+                <View style={[styles.container,{justifyContent: 'center',}]}>
                     <Text style={styles.welcome}>Welcome to HealthSightDetail!</Text>
                 </View>
             </View>
@@ -28,7 +28,6 @@ export default class HealthSightDetail extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

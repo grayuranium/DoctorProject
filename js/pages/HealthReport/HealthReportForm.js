@@ -179,7 +179,7 @@ export default class HealthReportForm extends Component<Props> {
                 <NaviBar
                     title='健康记录'
                 />
-                <View style={styles.container}>
+                <View style={styles.container_stretch}>
                     <ScrollView>
                         {ViewUtil.getSeparator('基础指标')}
                         {this.onInputItemRender('体重：','kg','weight')}
@@ -265,7 +265,7 @@ export default class HealthReportForm extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container_stretch: {
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'stretch',

@@ -76,7 +76,7 @@ class HealthSightTab extends Component<Props> {
     render() {
         let dataStore = this.getDataStore();
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{justifyContent: 'center',}]}>
                 <FlatList
                     data={dataStore.projectModes}
                     renderItem={({item})=>this.renderItem(item)}
@@ -128,7 +128,6 @@ export const HealthSightTabWithRedux = connect(mapStateToProps,mapDispatchToProp
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

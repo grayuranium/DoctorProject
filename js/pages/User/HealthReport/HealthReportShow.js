@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Button,TouchableOpacity} from 'react-native';
 import NaviBar from 'react-native-pure-navigation-bar';
-import HealthReportShowDialog,{TimeSpans} from '../../common/Components/HealthReportShowDialog'
+import HealthReportShowDialog,{TimeSpans} from '../../../common/Components/HealthReportShowDialog'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 type Props = {};

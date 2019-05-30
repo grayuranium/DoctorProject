@@ -17,8 +17,8 @@ import tinycolor from 'tinycolor2';
 import ImagePicker  from 'react-native-image-picker';
 import NaviBar from 'react-native-pure-navigation-bar';
 import Toast from 'react-native-easy-toast';
-import DataUploadUtil from "../../utils/DataUploadUtil";
-import ViewUtil from "../../utils/ViewUtil";
+import DataUploadUtil from "../../../utils/DataUploadUtil";
+import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
 const EAT_BREAKFAST_OPTIONS = ['吃了','没吃'];

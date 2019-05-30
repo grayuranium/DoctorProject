@@ -23,7 +23,7 @@ export default class RegisterPage extends Component<Props> {
         super(props);
         this.state = {
             userName: '',
-            userGender: 0,
+            userGender: '女',
             userPhone: '',
             userPsw: '',
             userDate: '2016-05-15',
@@ -63,7 +63,7 @@ export default class RegisterPage extends Component<Props> {
             ubirthday: this.state.userDate,
             uheadpho: 0,
         };
-        fetch('http://192.168.1.10:8080/EfficientDr/userRegister', {
+        fetch('http://192.168.1.12:8080/EfficientDr/userRegister', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -138,15 +138,15 @@ export default class RegisterPage extends Component<Props> {
                         onSelection={(selectedOption) => {
                             if (selectedOption === GENDER[0]) {
                                 this.setState({
-                                    userGender: 0,
+                                    userGender: '女',
                                 });
                             } else {
                                 this.setState({
-                                    userGender: 1,
+                                    userGender: '男',
                                 });
                             }
                         }}
-                        selectedOption={this.state.userGender === 0 ? GENDER[0] : GENDER[1]}
+                        selectedOption={this.state.userGender === '女' ? GENDER[0] : GENDER[1]}
                         renderOption={this.renderRadioOption}
                         renderContainer={this.renderRadioContainer}
                     />

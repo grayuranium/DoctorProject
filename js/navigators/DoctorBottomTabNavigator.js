@@ -1,15 +1,15 @@
 import {createBottomTabNavigator,createAppContainer} from 'react-navigation';
 import React, {Component} from 'react';
-import HealthSightPage from "../pages/User/HealthSight/HealthSightPage";
-import HealthReportPage from "../pages/User/HealthReport/HealthReportPage";
-import UserInfoPage from "../pages/User/UserInfo/UserInfoPage";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DoctorCurePage from "../pages/User/DoctorCure/DoctorCurePage";
+import DoctorInfoPage from "../pages/Doctor/DoctorInfo/DoctorInfoPage";
+import HealthSightUpdatePage from "../pages/Doctor/HealthSightUpdate/HealthSightUpdatePage";
+import PatientCurePage from "../pages/Doctor/PatientCure/PatientCurePage";
 
 
 const Tabs = {
-    HealthSightPage:{
-        screen:HealthSightPage,
+    HealthSightUpdatePage:{
+        screen:HealthSightUpdatePage,
         navigationOptions: {
             tabBarLabel:'健康',
             tabBarIcon:(tintColor,focused)=>(
@@ -17,8 +17,8 @@ const Tabs = {
             )
         }
     },
-    DoctorCurePage:{
-        screen: DoctorCurePage,
+    PatientCurePage:{
+        screen: PatientCurePage,
         navigationOptions: {
             tabBarLabel:'问诊',
             tabBarIcon:(tintColor,focused)=>(
@@ -26,17 +26,8 @@ const Tabs = {
             )
         }
     },
-    HealthReportPage:{
-        screen:HealthReportPage,
-        navigationOptions: {
-            tabBarLabel:'报表',
-            tabBarIcon:(tintColor,focused)=>(
-                <MaterialCommunityIcons name={'card-text-outline'} size={26} style={{color:tintColor}}/>
-            )
-        }
-    },
-    MyInfoPage:{
-        screen:UserInfoPage,
+    DoctorInfoPage:{
+        screen:DoctorInfoPage,
         navigationOptions: {
             tabBarLabel:'我的',
             tabBarIcon:(tintColor,focused)=>(
@@ -46,6 +37,6 @@ const Tabs = {
     },
 };
 
-export const BottomTabContainer = createAppContainer(createBottomTabNavigator(Tabs,{
-    initialRouteName: 'DoctorCurePage',
+export const DoctorBottomTabContainer = createAppContainer(createBottomTabNavigator(Tabs,{
+    initialRouteName: 'HealthSightUpdatePage',
 }));

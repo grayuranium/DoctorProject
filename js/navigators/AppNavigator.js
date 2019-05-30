@@ -5,13 +5,13 @@ import DoctorHomePage from "../pages/DoctorHomePage";
 import {connect} from 'react-redux';
 import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-navigation-redux-helpers";
 import UserHomePage from "../pages/UserHomePage";
-import HealthSightDetail from "../pages/HealthSight/HealthSightDetail";
-import {DoctorCureListWithRedux} from "../pages/DoctorCure/DoctorCureList";
-import {DoctorCureDetailWithRedux} from "../pages/DoctorCure/DoctorCureDetail";
-import DoctorCureTalk from "../pages/DoctorCure/DoctorCureTalk";
-import HealthReportForm from "../pages/HealthReport/HealthReportForm";
-import HealthReportShow from "../pages/HealthReport/HealthReportShow";
-import RegisterPage_Doctor from "../pages/RegisterPage_Doctor";
+import HealthSightDetail from "../pages/User/HealthSight/HealthSightDetail";
+import {DoctorCureListWithRedux} from "../pages/User/DoctorCure/DoctorCureList";
+import {DoctorCureDetailWithRedux} from "../pages/User/DoctorCure/DoctorCureDetail";
+import DoctorCureTalk from "../pages/User/DoctorCure/DoctorCureTalk";
+import HealthReportForm from "../pages/User/HealthReport/HealthReportForm";
+import HealthReportShow from "../pages/User/HealthReport/HealthReportShow";
+import DoctorRegisterPage from "../pages/DoctorRegisterPage";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -27,7 +27,7 @@ const AppWelcomeNav = createStackNavigator({
         },
     },
     Register_Doctor:{
-        screen:RegisterPage_Doctor,
+        screen:DoctorRegisterPage,
         navigationOptions:{
             header: null,
         },

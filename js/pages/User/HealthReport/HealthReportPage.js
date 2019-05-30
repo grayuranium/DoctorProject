@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, Dimensions} from 'react-native';
-import NavigationUtil from "../../utils/NavigationUtil";
-import ViewUtil from "../../utils/ViewUtil";
-import {HEALTH_REPORT} from "../../res/data/HealthReportItemData";
+import NavigationUtil from "../../../utils/NavigationUtil";
+import ViewUtil from "../../../utils/ViewUtil";
+import {HEALTH_REPORT} from "../../../res/data/HealthReportItemData";
 
 type Props = {};
 const {width,height} = Dimensions.get('window');

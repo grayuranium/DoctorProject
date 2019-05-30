@@ -29,40 +29,41 @@ export default class LoginPage extends  Component {
 
     login(){
         //需要根据redux设计工具类
-        // const {navigation} = this.props;
-        // navigation.navigate('AppUserHome');
-        //type:0-用户 1-医生
         const {navigation} = this.props;
-        let postData = {
-            accid:this.state.account,
-            pwd:this.state.password,
-            type:this.state.type.toString(),
-        };
-        let json_data = JSON.stringify(postData)
-        fetch('http://192.168.1.10:8080/EfficientDr/login',{
-            method:'POST',
-            credentials:'include',
-            headers:{
-                'Content-Type':'application/json;charset=UTF-8',
-            },
-            body:json_data,
-        }).then((response)=>{
-            if (response.ok){
-                return response.json();
-            }
-            throw new Error ('Network response was not ok.');
-        }).then((responseData)=>{
-            if (responseData.status===1){
-                AsyncStorage.setItem('http://192.168.43.116/',responseData.cookie);
-                navigation.navigate(this.state.type==0?'AppUserHome':'AppDoctorHome');
-            }else if(responseData.status===0){
-                throw new Error ('Password is wrong.')
-            }else {
-                throw new Error ('User do not exist.')
-            }
-        }).catch((error)=>{
-            this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
-        })
+        navigation.navigate('AppDoctorHome');
+        //type:0-用户 1-医生
+
+        // const {navigation} = this.props;
+        // let postData = {
+        //     accid:this.state.account,
+        //     pwd:this.state.password,
+        //     type:this.state.type.toString(),
+        // };
+        // let json_data = JSON.stringify(postData)
+        // fetch('http://192.168.1.12:8080/EfficientDr/login',{
+        //     method:'POST',
+        //     credentials:'include',
+        //     headers:{
+        //         'Content-Type':'application/json;charset=UTF-8',
+        //     },
+        //     body:json_data,
+        // }).then((response)=>{
+        //     if (response.ok){
+        //         return response.json();
+        //     }
+        //     throw new Error ('Network response was not ok.');
+        // }).then((responseData)=>{
+        //     if (responseData.status===1){
+        //         AsyncStorage.setItem('http://192.168.43.116/',responseData.cookie);
+        //         navigation.navigate(this.state.type==0?'AppUserHome':'AppDoctorHome');
+        //     }else if(responseData.status===0){
+        //         throw new Error ('Password is wrong.')
+        //     }else {
+        //         throw new Error ('User do not exist.')
+        //     }
+        // }).catch((error)=>{
+        //     this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
+        // })
     }
 
     sendMsgToLogin(){

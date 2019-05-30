@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {connect} from "react-redux";
-import NavigationUtil from "../../utils/NavigationUtil";
+import NavigationUtil from "../../../utils/NavigationUtil";
 import NaviBar from 'react-native-pure-navigation-bar';
 
 type Props = {};

@@ -18,17 +18,17 @@ import DatePicker from 'react-native-datepicker'
 type Props = {};
 const GENDER = ['Woman', 'Man'];
 const {width, height} = Dimensions.get('window');
-export default class RegisterPage_Doctor extends Component<Props> {
+export default class DoctorRegisterPage extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
             doctorName: '',
-            doctorGender: 0,
+            doctorGender: '女',
             doctorPhone: '',
             doctorPsw: '',
             doctorDate: '2016-05-15',
             doctorIdentityNum:'',
-            doctorDepartmentId:'1',
+            doctorDepartmentId:1,
             doctorHospital:'',
             doctorTitle:'医师',
         };
@@ -58,16 +58,19 @@ export default class RegisterPage_Doctor extends Component<Props> {
         // navigation.navigate('AppUserHome');
         const {navigation} = this.props;
         let postData = {
-            uname: this.state.doctorName,
-            ugender: this.state.doctorGender,
-            uaccid: this.state.doctorPhone,
-            upwd: this.state.doctorPsw,
-            uphonenum: this.state.doctorPhone,
-            usomatotypes: 0,
-            ubirthday: this.state.doctorDate,
-            uheadpho: 0,
+            dhospitaldepartmentid:this.state.doctorDepartmentId,
+            dname: this.state.doctorName,
+            dgender: this.state.doctorGender,
+            dbirthday: this.state.doctorDate,
+            daccid: this.state.doctorPhone,
+            dpwd: this.state.doctorPsw,
+            didentitycard:this.state.doctorIdentityNum,
+            dhospital:this.state.doctorHospital,
+            dtitle:this.state.doctorTitle,
+            dphonenum: this.state.doctorPhone,
+            dheadpho: 0,
         };
-        fetch('http://192.168.1.10:8080/EfficientDr/doctorRegister', {
+        fetch('http://192.168.1.12:8080/EfficientDr/docRegister', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -141,15 +144,15 @@ export default class RegisterPage_Doctor extends Component<Props> {
                         onSelection={(selectedOption) => {
                             if (selectedOption === GENDER[0]) {
                                 this.setState({
-                                    doctorGender: 0,
+                                    doctorGender: '女',
                                 });
                             } else {
                                 this.setState({
-                                    doctorGender: 1,
+                                    doctorGender: '男',
                                 });
                             }
                         }}
-                        selectedOption={this.state.doctorGender === 0 ? GENDER[0] : GENDER[1]}
+                        selectedOption={this.state.doctorGender === '女' ? GENDER[0] : GENDER[1]}
                         renderOption={this.renderRadioOption}
                         renderContainer={this.renderRadioContainer}
                     />

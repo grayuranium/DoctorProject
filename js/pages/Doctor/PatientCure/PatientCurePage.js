@@ -8,13 +8,16 @@
  */
 
 import React, {Component} from 'react';
-import {DoctorBottomTabContainer} from '../navigators/DoctorBottomTabNavigator'
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
 type Props = {};
-export default class DoctorHomePage extends Component<Props> {
+export default class PatientCurePage extends Component<Props> {
     render() {
-        return <DoctorBottomTabContainer/>;
+        return (
+            <View style={[styles.container,{justifyContent: 'center',}]}>
+                <Text style={styles.welcome}>Welcome to PatientCurePage!</Text>
+            </View>
+        );
     }
 }
 

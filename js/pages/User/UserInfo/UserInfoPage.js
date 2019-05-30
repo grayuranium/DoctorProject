@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
-import {USER_MENU,USER_CHILD_MENU} from '../../res/data/UserMenuData'
-import ViewUtil from "../../utils/ViewUtil";
-import NavigationUtil from "../../utils/NavigationUtil";
+import {USER_MENU,USER_CHILD_MENU} from '../../../res/data/UserMenuData'
+import ViewUtil from "../../../utils/ViewUtil";
+import NavigationUtil from "../../../utils/NavigationUtil";
 
 type Props = {};
 const window = Dimensions.get('window');

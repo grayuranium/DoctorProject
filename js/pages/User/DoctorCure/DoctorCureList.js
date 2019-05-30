@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {ActivityIndicator, Platform, StyleSheet, Text, View,FlatList,RefreshControl} from 'react-native';
-import actions from "../../actions";
+import actions from "../../../actions";
 import {connect} from "react-redux";
 import Toast from 'react-native-easy-toast';
-import NavigationUtil from "../../utils/NavigationUtil";
+import NavigationUtil from "../../../utils/NavigationUtil";
 import NaviBar from 'react-native-pure-navigation-bar';
-import ViewUtil from "../../utils/ViewUtil";
+import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
 const URL = 'https://api.github.com/search/repositories?q=';

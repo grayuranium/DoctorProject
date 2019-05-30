@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View,FlatList,Dimensions,Image} from 'react-native';
 import Toast from 'react-native-easy-toast';
 import Swiper from 'react-native-swiper';
-import NavigationUtil from "../../utils/NavigationUtil";
-import {DOCTOR_OFFICE_MENU} from "../../res/data/DoctorOfficeMenuData";
-import ViewUtil from "../../utils/ViewUtil";
+import NavigationUtil from "../../../utils/NavigationUtil";
+import {DOCTOR_OFFICE_MENU} from "../../../res/data/DoctorOfficeMenuData";
+import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
 const {width,height} = Dimensions.get('window');
@@ -32,13 +32,13 @@ export default class DoctorCurePage extends Component<Props> {
                     autoplay={true}
                 >
                     <View style={styles.slide}>
-                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper1.jpg')}/>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../../res/bitmap/swiper1.jpg')}/>
                     </View>
                     <View style={styles.slide}>
-                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper2.jpg')}/>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../../res/bitmap/swiper2.jpg')}/>
                     </View>
                     <View style={styles.slide}>
-                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../res/bitmap/swiper3.jpg')}/>
+                        <Image resizeMode={'stretch'} style={styles.swiper_img} source={require('../../../res/bitmap/swiper3.jpg')}/>
                     </View>
                 </Swiper>
                 <View style={{backgroundColor:'#DEEDED',height:30,alignItems: 'center',justifyContent: 'center',borderRadius:20, margin:5}}>

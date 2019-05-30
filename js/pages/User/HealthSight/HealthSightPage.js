@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {TopTabContainer} from "../../navigators/TopTabNavigator";
+import {TopTabContainer} from "../../../navigators/TopTabNavigator";
 
 type Props = {};
 export default class HealthSightPage extends Component<Props> {

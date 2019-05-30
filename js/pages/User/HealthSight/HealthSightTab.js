@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,FlatList,RefreshControl,ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import Toast from 'react-native-easy-toast';
-import actions from '../../actions';
-import NavigationUtil from "../../utils/NavigationUtil";
-import ViewUtil from "../../utils/ViewUtil";
+import actions from '../../../actions';
+import NavigationUtil from "../../../utils/NavigationUtil";
+import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
 const URL = 'http://192.168.1.10:8080/EfficientDr/userGetHealthCircleVerif?department=';

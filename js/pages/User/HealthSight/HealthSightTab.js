@@ -5,9 +5,10 @@ import Toast from 'react-native-easy-toast';
 import actions from '../../../actions';
 import NavigationUtil from "../../../utils/NavigationUtil";
 import ViewUtil from "../../../utils/ViewUtil";
+import '../../../Global'
 
 type Props = {};
-const URL = 'http://192.168.1.10:8080/EfficientDr/userGetHealthCircleVerif?department=';
+const URL = 'http://'+global.service.local_url+':8080/EfficientDr/userGetHealthCircleVerif?department=';
 const QUERY_STR = '&sort=stars';
 const REFRESH_TITLE_COLOR = 'red';
 const REFRESH_COLOR = 'red';
@@ -62,7 +63,7 @@ class HealthSightTab extends Component<Props> {
     }
 
     onClick(item){
-        NavigationUtil.GoPage(null,'HealthSightDetail');
+        NavigationUtil.GoPage(item,'HealthSightDetail');
     }
 
     genIndicator(){

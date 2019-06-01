@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {HealthSightTabWithRedux} from "../pages/User/HealthSight/HealthSightTab";
 
 const TABS = {};
-const TAB_Names = ['儿科','男科','内科','外科','妇科','产科'];
+const TAB_Names = [global.department[0],global.department[1],global.department[2],global.department[3]];
 
 TAB_Names.forEach((item,index)=>{
     TABS[`tab${index}`] = {

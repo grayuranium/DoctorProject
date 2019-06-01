@@ -15,7 +15,7 @@ export default class DoctorCurePage extends Component<Props> {
     }
 
     onClick(data){
-        NavigationUtil.GoPage({officeName:data.name},'DoctorCureList');
+        NavigationUtil.GoPage({officeName:data.name,officeId:data.id},'DoctorCureList');
     }
 
     renderItem(item){

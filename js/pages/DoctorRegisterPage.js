@@ -70,7 +70,7 @@ export default class DoctorRegisterPage extends Component<Props> {
             dphonenum: this.state.doctorPhone,
             dheadpho: 0,
         };
-        fetch('http://192.168.1.12:8080/EfficientDr/docRegister', {
+        fetch('http://'+global.service.local_url+':8080/EfficientDr/docRegister', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

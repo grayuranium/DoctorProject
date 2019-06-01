@@ -6,10 +6,12 @@ const defaultState = {};
  * healthsight_state:{
  *     java:{
  *         item:[],
+ *         projectModes:[],
  *         isloading:false,
  *     },
  *     python:{
  *         item:[],
+ *         projectModes:[],
  *         isloading:true,
  *     },
  * }

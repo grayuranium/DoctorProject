@@ -63,7 +63,7 @@ export default class RegisterPage extends Component<Props> {
             ubirthday: this.state.userDate,
             uheadpho: 0,
         };
-        fetch('http://192.168.1.12:8080/EfficientDr/userRegister', {
+        fetch('http://'+global.service.local_url+':8080/EfficientDr/userRegister', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

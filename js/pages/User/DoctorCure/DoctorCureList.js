@@ -8,7 +8,7 @@ import NaviBar from 'react-native-pure-navigation-bar';
 import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
-const URL = 'https://api.github.com/search/repositories?q=';
+const URL = 'http://'+global.service.local_url+':8080/EfficientDr/docfindHealthCircleByDocidVerif?docid=';
 const QUERY_STR = '&sort=stars';
 const PAGE_SIZE = 10;
 const REFRESH_TITLE_COLOR = 'red';
@@ -17,8 +17,9 @@ const REFRESH_TINT_COLOR = 'red';
 class DoctorCureList extends Component<Props> {
     constructor(props){
         super(props);
-        const {officeName} = this.props.navigation.state.params;
+        const {officeName,officeId} = this.props.navigation.state.params;
         this.officeName = officeName;
+        this.officeId = officeId;
     }
 
     componentDidMount(){
@@ -28,7 +29,7 @@ class DoctorCureList extends Component<Props> {
     loadData(loadMore){
         const {onLoadDoctorCureData,onLoadMoreDoctorCureData} = this.props;
         const dataStore = this.getDataStore();
-        const url = this.genFetchUrl(this.officeName);
+        const url = this.genFetchUrl(this.officeId);
         if (loadMore){
             //多次载入
             onLoadMoreDoctorCureData(this.officeName,++dataStore.pageIndex,PAGE_SIZE,dataStore.items,callback=>{
@@ -55,7 +56,7 @@ class DoctorCureList extends Component<Props> {
     }
 
     genFetchUrl(key){
-        return URL+key+QUERY_STR;
+        return URL+key;
     }
 
     renderItem(item){

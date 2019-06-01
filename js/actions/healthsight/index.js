@@ -18,9 +18,9 @@ export function onLoadHealthSightData(diseaseSortName,url, pageSize) {
         DataStore.fetchData(url)
             .then(data=>{
                 //数据加载成功
-                let fixItems = [];
-                if (data&&data.data&&data.data.items) {
-                    fixItems = data.data.items;//获取本次搜索到的所有数据
+                let fixItems = new Array();
+                if (data&&data.data&&data.data.data) {
+                    fixItems = data.data.data;//获取本次搜索到的所有数据
                 }
                 dispatch({
                     type: Types.HEALTHSIGHT_LOAD_SUCCESSFUL,

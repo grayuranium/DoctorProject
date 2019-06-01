@@ -51,12 +51,11 @@ export default class DataStore {
      * @returns {Promise<any> | Promise<*>}
      */
     fetchNetData(url){
-        let cookie = AsyncStorage.getItem('http://192.168.1.10/');
         return new Promise((resolve,reject)=>{
             fetch(url,{
                 credentials:'include',
                 headers:{
-                    Cookie:cookie,
+                    'Cookie':global.cookies.cookie,
                 },
             }).then((response)=>{
                     if (response.ok){

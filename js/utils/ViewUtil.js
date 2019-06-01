@@ -127,27 +127,27 @@ export default class ViewUtil {
      * @returns {*}
      */
     static getListItem(callBack,item){
-        if (!item||!item.owner) return null;
+        if (!item||!item.doctorsuggestionid) return null;
         return <TouchableOpacity
             onPress={callBack}
         >
             <View style={styles.list_cell_container}>
                 <Text style={styles.list_title}>
-                    {item.full_name}
+                    {item.dstitle}
                 </Text>
                 <Text style={styles.list_description}>
-                    {item.description}
+                    {item.dscontent}
                 </Text>
                 <View style={styles.list_row}>
-                    <Text>Author:</Text>
+                    <Text>Image:</Text>
                     <Image
                         style={{height:22,width:22}}
-                        source={{uri:item.owner.avatar_url}}
+                        source={{uri:item.dsimgurl}}
                     />
                 </View>
                 <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                    <Text>Start:</Text>
-                    <Text>{item.stargazers_count}</Text>
+                    <Text>Doctor:</Text>
+                    <Text>{item.dsdoctorname}</Text>
                 </View>
             </View>
         </TouchableOpacity>;

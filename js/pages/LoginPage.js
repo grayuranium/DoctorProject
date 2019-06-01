@@ -29,41 +29,55 @@ export default class LoginPage extends  Component {
 
     login(){
         //需要根据redux设计工具类
-        const {navigation} = this.props;
-        navigation.navigate('AppDoctorHome');
-        //type:0-用户 1-医生
-
         // const {navigation} = this.props;
-        // let postData = {
-        //     accid:this.state.account,
-        //     pwd:this.state.password,
-        //     type:this.state.type.toString(),
-        // };
-        // let json_data = JSON.stringify(postData)
-        // fetch('http://192.168.1.12:8080/EfficientDr/login',{
-        //     method:'POST',
-        //     credentials:'include',
-        //     headers:{
-        //         'Content-Type':'application/json;charset=UTF-8',
-        //     },
-        //     body:json_data,
-        // }).then((response)=>{
-        //     if (response.ok){
-        //         return response.json();
-        //     }
-        //     throw new Error ('Network response was not ok.');
-        // }).then((responseData)=>{
-        //     if (responseData.status===1){
-        //         AsyncStorage.setItem('http://192.168.43.116/',responseData.cookie);
-        //         navigation.navigate(this.state.type==0?'AppUserHome':'AppDoctorHome');
-        //     }else if(responseData.status===0){
-        //         throw new Error ('Password is wrong.')
-        //     }else {
-        //         throw new Error ('User do not exist.')
-        //     }
-        // }).catch((error)=>{
-        //     this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
-        // })
+        // navigation.navigate('AppDoctorHome');
+        //type:0-用户 1-医生
+        const {navigation} = this.props;
+        let postData = {
+            accid:this.state.account,
+            pwd:this.state.password,
+            type:this.state.type.toString(),
+        };
+        let json_data = JSON.stringify(postData)
+        fetch('http://'+global.service.local_url+':8080/EfficientDr/login',{
+            method:'POST',
+            credentials:'include',
+            headers:{
+                'Content-Type':'application/json;charset=UTF-8',
+            },
+            body:json_data,
+        }).then((response)=>{
+            if (response.ok){
+                return response.json();
+            }
+            throw new Error ('Network response was not ok.');
+        }).then((responseData)=>{
+            if (responseData.status===1){
+                global.cookies.cookie = responseData.cookie.toString();
+                return responseData.InfoKey;
+            }else if(responseData.status===0){
+                throw new Error ('Password is wrong.')
+            }else {
+                throw new Error ('User do not exist.')
+            }
+        }).then((info)=>{
+            if (this.state.type==0){
+                global.userinfo.accid = info.uaccid;
+                global.userinfo.name = info.uname;
+                global.userinfo.id = info.userid;
+                global.userinfo.phonenum = info.uphonenum;
+            } else {
+                global.doctorinfo.accid = info.daccid;
+                global.doctorinfo.id = info.doctorid;
+                global.doctorinfo.phonenum = info.dphonenum;
+                global.doctorinfo.hospital = info.dhospital;
+                global.doctorinfo.headpho = info.dheadpho;
+                global.doctorinfo.hospitaldepartmentid = info.dhospitaldepartmentid;
+            }
+            navigation.navigate(this.state.type==0?'AppUserHome':'AppDoctorHome');
+        }).catch((error)=>{
+            this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
+        })
     }
 
     sendMsgToLogin(){
@@ -111,7 +125,6 @@ export default class LoginPage extends  Component {
                     inputStyle={styles.textInputStyle}
                     onChangeText={text=>this.setState({account:text})}
                     inputContainerStyle={styles.textInputContainer}
-                    errorStyle={{ color: 'red' }}
                 />
                 {this.state.msgLogin?
                     <View style={[styles.textInputContainer,{marginTop:10}]}>

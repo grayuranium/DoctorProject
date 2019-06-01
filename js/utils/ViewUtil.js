@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import {DOCTOR_OFFICE_MENU} from "../res/data/DoctorOfficeMenuData";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width,height} = Dimensions.get('window');
@@ -118,6 +119,25 @@ export default class ViewUtil {
      */
     static  getDoctorOfficeMenuItem(callBack,menu){
         return ViewUtil.getGridItem(callBack,menu.name,menu.color,menu.Icons,menu.icon);
+    }
+
+    /**
+     * 医生列表的Item
+     * @param callBack
+     * @param item
+     */
+    static getDoctorListItem(callBack,item){
+        if (!item||!item.doctorid) return null;
+        return <TouchableOpacity
+            onPress={callBack}
+        >
+            <View style={styles.list_cell_container}>
+                <Text>{item.dname}</Text>
+                <Text>{item.dtitle}</Text>
+                <Text>{item.dhospital}</Text>
+                <Text>{DOCTOR_OFFICE_MENU[item.dhospitaldepartmentid-1].name}</Text>
+            </View>
+        </TouchableOpacity>;
     }
 
     /**

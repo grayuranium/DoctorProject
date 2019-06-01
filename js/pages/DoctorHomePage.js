@@ -13,6 +13,26 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 
 type Props = {};
 export default class DoctorHomePage extends Component<Props> {
+
+    componentWillMount(){
+        //websocket建立连接
+        let cookie = global.cookies.cookie.split('=')[1];
+        global.ws = new WebSocket('ws://'+global.service.local_url+':8080/EfficientDr/websocket?cookie='+cookie);
+        //回调函数
+        global.ws.onopen = (e) => {
+            // 打开一个连接
+            console.log('连接成功！WebSocket' + e.toString());
+        };
+        global.ws.onerror = (e) => {
+            //连接发生错误
+            console.log('连接错误！Error:'+ e.toString());
+        };
+        global.ws.onclose = (e) => {
+            //连接被关闭
+            console.log('连接关闭！Close:'+ e.toString());
+        }
+    }
+
     render() {
         return <DoctorBottomTabContainer/>;
     }

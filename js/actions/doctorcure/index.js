@@ -18,9 +18,18 @@ export function onLoadDoctorCureData(officeName,url, pageSize) {
         DataStore.fetchData(url)
             .then(data=>{
                 //数据加载成功
-                let fixItems = [];
-                if (data&&data.data&&data.data.items) {
-                    fixItems = data.data.items;//获取本次搜索到的所有数据
+                let outFixItems = new Array();
+                let fixItems = new Array();
+                if (data&&data.data&&data.data.doctors) {
+                    outFixItems = data.data.doctors;//获取本次搜索到的所有数据
+                }
+                for (let i=0;i<outFixItems.length;i++){
+                    let doctor = outFixItems[i].doctor
+                    doctor = {
+                        ...doctor,
+                        onlineTocken:outFixItems[i].onlineTocken,
+                    }
+                    fixItems[i] = doctor;
                 }
                 dispatch({
                     type: Types.DOCTORCURE_LIST_LOAD_SUCCESSFUL,

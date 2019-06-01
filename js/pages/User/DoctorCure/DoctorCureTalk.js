@@ -7,8 +7,9 @@ export default class DoctorCureTalk extends Component<Props> {
     constructor(props){
         super(props);
         //接收上一页面传来的医生数据
-        const {doctorData} = this.props.navigation.state.params;
-        this.doctorData = doctorData;
+        const {doctorid,onlineTocken} = this.props.navigation.state.params;
+        this.onlineTocken = onlineTocken;
+        this.doctorid = doctorid;
         //设置giftedchat需要的state
         this.state = {
             messages: [],

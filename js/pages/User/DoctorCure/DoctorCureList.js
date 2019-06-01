@@ -8,7 +8,7 @@ import NaviBar from 'react-native-pure-navigation-bar';
 import ViewUtil from "../../../utils/ViewUtil";
 
 type Props = {};
-const URL = 'http://'+global.service.local_url+':8080/EfficientDr/docfindHealthCircleByDocidVerif?docid=';
+const URL = 'http://'+global.service.local_url+':8080/EfficientDr/userGetOnlineDocVerif?department=';
 const QUERY_STR = '&sort=stars';
 const PAGE_SIZE = 10;
 const REFRESH_TITLE_COLOR = 'red';
@@ -19,7 +19,7 @@ class DoctorCureList extends Component<Props> {
         super(props);
         const {officeName,officeId} = this.props.navigation.state.params;
         this.officeName = officeName;
-        this.officeId = officeId;
+        this.officeId = officeId.toString();
     }
 
     componentDidMount(){
@@ -60,11 +60,11 @@ class DoctorCureList extends Component<Props> {
     }
 
     renderItem(item){
-        return ViewUtil.getListItem(()=>this.onClick(item),item);
+        return ViewUtil.getDoctorListItem(()=>this.onClick(item),item);
     }
 
     onClick(item){
-        NavigationUtil.GoPage({doctorId:item.id,officeName:this.officeName},'DoctorCureDetail');
+        NavigationUtil.GoPage(item,'DoctorCureDetail');
     }
 
     genIndicator(){

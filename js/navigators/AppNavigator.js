@@ -7,7 +7,7 @@ import {createReactNavigationReduxMiddleware, createReduxContainer} from "react-
 import UserHomePage from "../pages/UserHomePage";
 import HealthSightDetail from "../pages/User/HealthSight/HealthSightDetail";
 import {DoctorCureListWithRedux} from "../pages/User/DoctorCure/DoctorCureList";
-import {DoctorCureDetailWithRedux} from "../pages/User/DoctorCure/DoctorCureDetail";
+import DoctorCureDetail from "../pages/User/DoctorCure/DoctorCureDetail";
 import DoctorCureTalk from "../pages/User/DoctorCure/DoctorCureTalk";
 import HealthReportForm from "../pages/User/HealthReport/HealthReportForm";
 import HealthReportShow from "../pages/User/HealthReport/HealthReportShow";
@@ -54,7 +54,7 @@ const AppUserHomeNav = createStackNavigator({
         },
     },
     DoctorCureDetail:{
-        screen:DoctorCureDetailWithRedux,
+        screen:DoctorCureDetail,
         navigationOptions: {
             header: null,
         },

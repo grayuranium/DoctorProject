@@ -1,9 +1,10 @@
 import {createAppContainer,createMaterialTopTabNavigator} from 'react-navigation';
 import React, {Component} from 'react';
+import {DOCTOR_OFFICE_MENU} from '../res/data/DoctorOfficeMenuData'
 import {HealthSightTabWithRedux} from "../pages/User/HealthSight/HealthSightTab";
 
 const TABS = {};
-const TAB_Names = [global.department[0],global.department[1],global.department[2],global.department[3]];
+const TAB_Names = [DOCTOR_OFFICE_MENU[0].name,DOCTOR_OFFICE_MENU[1].name,DOCTOR_OFFICE_MENU[2].name,DOCTOR_OFFICE_MENU[3].name];
 
 TAB_Names.forEach((item,index)=>{
     TABS[`tab${index}`] = {

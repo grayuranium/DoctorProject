@@ -80,8 +80,9 @@ export default class DataStore {
         return new Promise((resolve,reject)=>{
             this.fetchLocalData(url)
                 .then((wrapData)=>{
-                    if (wrapData&&DataStore.checkTimestampValid(wrapData.timestamp)){
+                    if (false){
                         //本地已有数据，取本地数据
+                        //wrapData&&DataStore.checkTimestampValid(wrapData.timestamp)
                         resolve(wrapData);
                     }else {
                         //本地没有数据，从网上获取数据

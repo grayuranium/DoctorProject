@@ -10,9 +10,16 @@
 import React, {Component} from 'react';
 import {DoctorBottomTabContainer} from '../navigators/DoctorBottomTabNavigator'
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import NavigationUtil from "../utils/NavigationUtil";
+import BackPressComponent from "../common/Components/BackPressComponent";
 
 type Props = {};
 export default class DoctorHomePage extends Component<Props> {
+    constructor(props){
+        super(props);
+        const {navigation} = this.props;
+        NavigationUtil.navigation = navigation;
+    }
 
     componentWillMount(){
         //websocket建立连接

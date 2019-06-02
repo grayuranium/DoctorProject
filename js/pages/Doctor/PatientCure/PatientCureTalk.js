@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View,Text,StyleSheet,TouchableOpacity,Keyboard,Platform,StatusBar} from 'react-native';
-import {GiftedChat,Bubble,Avatar} from 'react-native-gifted-chat'
+import {View, Text, StyleSheet, TouchableOpacity, Keyboard, Platform, StatusBar} from 'react-native';
+import {GiftedChat, Bubble, Avatar} from 'react-native-gifted-chat'
 
 type Props = {};
+const uuidv4 = require('uuid/v4');
 export default class PatientCureTalk extends Component<Props> {
-    constructor(props){
+    constructor(props) {
         super(props);
         //接收上一页面传来的医生数据
         const {sendertoken} = this.props.navigation.state.params;
@@ -12,71 +13,59 @@ export default class PatientCureTalk extends Component<Props> {
         //设置giftedchat需要的state
         this.state = {
             messages: [],
-            userData:{
-                userId:global.userinfo.id,
-                userName:global.userinfo.name,
+            userData: {
+                userId: global.userinfo.id,
+                userName: global.userinfo.name,
                 avatar: 'https://placeimg.com/140/140/any',
             },
             messageId: 0,
-            moreData:'',
-            isMore:true,
-            contentHeight:0,
-            Currentpage:1,
+            moreData: '',
+            isMore: true,
+            contentHeight: 0,
+            Currentpage: 1,
         }
         //设置接收回调
-        global.ws.onmessage = (e)=>{
+        global.ws.onmessage = (e) => {
             let msg = e.data;
+            const newmsg = JSON.parse(msg);
+            if (newmsg.status!=undefined){
+                if (newmsg.status==0){
+                    console.log('发送失败');
+                }
+                return
+            }
+            this.setState(preveState => ({
+                messages: [
+                    ...preveState.messages,
+                    {
+                        _id: uuidv4().toString(),
+                        createdAt: new Date(),
+                        text: newmsg.content,
+                        user: {
+                            _id: 0,
+                            name: newmsg.senderaccid,
+                            avatar: 'https://placeimg.com/140/140/any',
+                        },
+                    }
+                ],
+            }))
         }
         //设置用户头像和气泡
         this.renderBubble = this.renderBubble.bind(this);
         this.renderAvatar = this.renderAvatar.bind(this);
     }
 
-    componentDidMount(){
-        //测试接收数据
-        // setTimeout(()=>{
-        //     this.setState({
-        //         messages: [
-        //             {
-        //                 _id: 2,
-        //                 text: '微信小程序开发的基本流程',
-        //                 createdAt: new Date('2018-10-25T15:41:00+08:00'),
-        //                 user: {
-        //                     _id: 1,
-        //                     name: 'jackson影琪',
-        //                     avatar: 'https://placeimg.com/140/140/any',
-        //                 },
-        //             },
-        //             {
-        //                 _id: 1,
-        //                 text: 'Hello jackson影琪',
-        //                 createdAt: new Date('2016-06-07T10:00:00+08:00'),
-        //                 user: {
-        //                     _id: 2,
-        //                     name: 'jackson',
-        //                     avatar: 'https://placeimg.com/140/140/any'
-        //                 },
-        //                 image: 'https://pic.cnblogs.com/avatar/1040068/20181013100635.png',
-        //             },
-        //         ],
-        //     })
-        // },2000)
-    }
-
     onSend(messages = []) {
         this.setState(previousState => ({
             messages: GiftedChat.append(previousState.messages, messages),
         }));
-        this.doSend(messages[this.state.messageId].text);
-        this.setState(previousState => ({
-            messageId:previousState.messageId+1,
-        }))
+        this.doSend(messages[0].text);
     }
 
     doSend = (message) => {
         let messageObj = {
-            receivertoken:this.onlineTocken,
-            content:message,
+            receivertoken: this.onlineTocken,
+            content: message,
         };
         let messageJson = JSON.stringify(messageObj);
         global.ws.send(messageJson);
@@ -119,10 +108,10 @@ export default class PatientCureTalk extends Component<Props> {
     }
 
     //加载更多界面
-    getMessageData(){
-        setTimeout(()=>{
+    getMessageData() {
+        setTimeout(() => {
 
-        },2000);
+        }, 2000);
         this.setState({
             isMore: false,
             moreData: ''
@@ -135,10 +124,9 @@ export default class PatientCureTalk extends Component<Props> {
         let height = event.nativeEvent.layoutMeasurement.height;
         let contentHeight = event.nativeEvent.contentSize.height;
         if (y + height >= contentHeight - 20 && y > 0 && this.state.contentHeight != contentHeight) {//上拉下一页
-            this.state.contentHeight=contentHeight
+            this.state.contentHeight = contentHeight
             this.onLoadEarlier()
-        }
-        else if (y < 0 || y == 0) {//下拉上一页ios
+        } else if (y < 0 || y == 0) {//下拉上一页ios
 
         }
     }
@@ -147,8 +135,10 @@ export default class PatientCureTalk extends Component<Props> {
         return (
             <TouchableOpacity
                 activeOpacity={1}
-                style={{ flex: 1,}}
-                onPress={() => { Keyboard.dismiss() }}
+                style={{flex: 1,}}
+                onPress={() => {
+                    Keyboard.dismiss()
+                }}
             >
                 <GiftedChat
                     //   onPressAvatar={()=>{alert('Keyboard.dismiss'); Keyboard.dismiss()}}
@@ -162,7 +152,7 @@ export default class PatientCureTalk extends Component<Props> {
                     // 输入组件
                     placeholder={'请输入内容'}
                     // label={'发送'}
-                    containerStyle={{ marginBottom: 2 }}
+                    containerStyle={{marginBottom: 2}}
                     children={
                         <View style={styles.buttonBoxBorder}>
                             <Text style={styles.buttonText}>发送</Text>
@@ -177,14 +167,14 @@ export default class PatientCureTalk extends Component<Props> {
                     user={this.state.userData}
 
                     // 系统消息样式
-                    wrapperStyle={{ paddingLeft: 12, paddingRight: 12 }}
-                    textStyle={{ lineHeight: 20 }}
+                    wrapperStyle={{paddingLeft: 12, paddingRight: 12}}
+                    textStyle={{lineHeight: 20}}
                     //加载更多消息
                     loadEarlier={this.state.isMore}//
                     isLoadingEarlier={this.state.isMore}//
                     renderLoadEarlier={() => {
                         return (
-                            <Text style={styles.LookMoreStyle}  onPress={this.onLoadEarlier}>{this.state.moreData}</Text>
+                            <Text style={styles.LookMoreStyle} onPress={this.onLoadEarlier}>{this.state.moreData}</Text>
                         );
                     }}
 
@@ -199,7 +189,7 @@ export default class PatientCureTalk extends Component<Props> {
                         scrollEnabled: true,
                         //记录当前加载到了哪一页
                         page: 1,
-                        onScroll:this._onScroll.bind(this)
+                        onScroll: this._onScroll.bind(this)
                     }}
                 />
             </TouchableOpacity>
@@ -224,7 +214,7 @@ const styles = StyleSheet.create({
         marginRight: 12,
         marginBottom: 6,
     },
-    LookMoreStyle:{
+    LookMoreStyle: {
         fontSize: 14,
         textAlign: 'center',
         margin: 10,

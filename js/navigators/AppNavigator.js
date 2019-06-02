@@ -86,7 +86,7 @@ const AppDoctorHomeNav = createStackNavigator({
             header: null,
         },
     },
-    PatientCurePage:{
+    PatientCureTalk:{
         screen:PatientCureTalk,
         navigationOptions: {
             header: null,

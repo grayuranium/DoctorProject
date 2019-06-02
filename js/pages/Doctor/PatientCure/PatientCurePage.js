@@ -26,6 +26,17 @@ export default class PatientCurePage extends Component<Props> {
         };
         global.ws.onmessage = (e)=>{
             let msg = e.data;
+            let newmsg = JSON.parse(msg);
+            this.setState(preveState=>({
+                data: [
+                    ...preveState.data,
+                    {
+                        senderaccid:newmsg.senderaccid,
+                        sendertoken:newmsg.sendertoken,
+                        content:newmsg.content,
+                    }
+                ]
+            }))
         }
     }
 

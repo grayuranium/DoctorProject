@@ -19,17 +19,17 @@ export default class DoctorHomePage extends Component<Props> {
         let cookie = global.cookies.cookie.split('=')[1];
         global.ws = new WebSocket('ws://'+global.service.local_url+':8080/EfficientDr/websocket?cookie='+cookie);
         //回调函数
-        global.ws.onopen = (e) => {
+        global.ws.onopen = () => {
             // 打开一个连接
-            console.log('连接成功！WebSocket' + e.toString());
+            console.log('连接成功！');
         };
         global.ws.onerror = (e) => {
             //连接发生错误
             console.log('连接错误！Error:'+ e.toString());
         };
-        global.ws.onclose = (e) => {
+        global.ws.onclose = () => {
             //连接被关闭
-            console.log('连接关闭！Close:'+ e.toString());
+            console.log('连接关闭！');
         }
     }
 

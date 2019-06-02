@@ -7,9 +7,8 @@ export default class DoctorCureTalk extends Component<Props> {
     constructor(props){
         super(props);
         //接收上一页面传来的医生数据
-        const {doctorid,onlineTocken} = this.props.navigation.state.params;
+        const {onlineTocken} = this.props.navigation.state.params;
         this.onlineTocken = onlineTocken;
-        this.doctorid = doctorid;
         //设置giftedchat需要的state
         this.state = {
             messages: [],
@@ -27,34 +26,6 @@ export default class DoctorCureTalk extends Component<Props> {
         //设置用户头像和气泡
         this.renderBubble = this.renderBubble.bind(this);
         this.renderAvatar = this.renderAvatar.bind(this);
-    }
-
-    componentWillMount() {
-        //建立链接
-        // let ws = new WebSocket('ws://127.0.0.1:8080/websocket/'+str);
-        // this.ws = ws;
-        // this.ws.onopen = (evt) => {
-        //     // 打开一个连接
-        //     // console.log('WebSocket==' + evt)
-        //     alert("连接成功啦")
-        //     //ws.send('something'); // 发送一个消息
-        // };
-        // this.ws.onmessage = (e) => {
-        //     // }
-        //     // 接收到了一个消息
-        //     //alert(JSON.parse(e.data).text)
-        //     console.log('e.data==' + e.data);
-        // };
-        //
-        // this.ws.onerror = (e) => {
-        //     // 发生了一个错误
-        //     console.log('e.message==' + e.message);
-        // };
-        //
-        // this.ws.onclose = (e) => {
-        //     // 连接被关闭了
-        //     console.log('e.code===' + e.code, 'e.reason===' + e.reason);
-        // };
     }
 
     componentDidMount(){

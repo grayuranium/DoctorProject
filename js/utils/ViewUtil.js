@@ -141,6 +141,24 @@ export default class ViewUtil {
     }
 
     /**
+     * 用户消息列表的Item
+     * @param callBack
+     * @param item
+     * @returns {*}
+     */
+    static getUserListItem(callBack,item){
+        if (!item) return null;
+        return <TouchableOpacity
+            onPress={callBack}
+        >
+            <View style={styles.list_cell_container}>
+                <Text>{item.senderaccid}</Text>
+                <Text>{item.content}</Text>
+            </View>
+        </TouchableOpacity>;
+    }
+
+    /**
      * 列表的Item
      * @param callBack
      * @param item

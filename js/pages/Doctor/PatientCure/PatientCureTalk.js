@@ -3,12 +3,12 @@ import {View,Text,StyleSheet,TouchableOpacity,Keyboard,Platform,StatusBar} from 
 import {GiftedChat,Bubble,Avatar} from 'react-native-gifted-chat'
 
 type Props = {};
-export default class DoctorCureTalk extends Component<Props> {
+export default class PatientCureTalk extends Component<Props> {
     constructor(props){
         super(props);
         //接收上一页面传来的医生数据
-        const {onlineTocken} = this.props.navigation.state.params;
-        this.onlineTocken = onlineTocken;
+        const {sendertoken} = this.props.navigation.state.params;
+        this.onlineTocken = sendertoken;
         //设置giftedchat需要的state
         this.state = {
             messages: [],

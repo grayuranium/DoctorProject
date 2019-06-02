@@ -1,11 +1,31 @@
 import React, {Component} from 'react';
 import {Button,Overlay,Input} from 'react-native-elements'
-import {Platform, StyleSheet, Text, View, TextInput, Image, AsyncStorage} from 'react-native';
+import '../../../Global'
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    Image,
+    AsyncStorage,
+    ActivityIndicator,
+    RefreshControl, FlatList
+} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import Icon from "../../RegisterPage";
+import actions from "../../../actions";
+import {connect} from "react-redux";
+import ViewUtil from "../../../utils/ViewUtil";
+import NavigationUtil from "../../../utils/NavigationUtil";
+import Toast from 'react-native-easy-toast';
 
 type Props = {};
 const Dimensions = require('Dimensions');
+const URL = 'http://'+global.service.local_url+':8080/EfficientDr//docfindHealthCircleByDocidVerif?docid=';
+const REFRESH_TITLE_COLOR = 'red';
+const REFRESH_COLOR = 'red';
+const REFRESH_TINT_COLOR = 'red';
+const PAGE_SIZE = 10;
 const WINDOW_WIDTH = Dimensions.get('window').width;
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const CameraOptions = {
@@ -15,9 +35,11 @@ const CameraOptions = {
         skipBackup: true,
     },
 };
-export default class HealthSightUpdatePage extends Component<Props> {
+
+class HealthSightUpdatePage extends Component<Props> {
     constructor(props){
         super(props);
+        this.doctorid = global.doctorinfo.id.toString();
         this.state = {
             isVisible:false,
             title:'',
@@ -27,6 +49,59 @@ export default class HealthSightUpdatePage extends Component<Props> {
             keyword:'',
             avatarSource:'',
         };
+    }
+
+    componentDidMount(){
+        this.loadData(false);
+    }
+
+    loadData(loadMore){
+        const {onLoadHealthSightUpdateData,onLoadMoreHealthSightUpdateData} = this.props;
+        const dataStore = this.getDataStore();
+        const url = this.genFetchUrl(this.doctorid);
+        if (loadMore){
+            //多次载入
+            onLoadMoreHealthSightUpdateData(this.doctorid,++dataStore.pageIndex,PAGE_SIZE,dataStore.items,callback=>{
+                this.refs.toast.show('没有更多了');
+            });
+        }else {
+            //首次加载
+            onLoadHealthSightUpdateData(this.doctorid,url,PAGE_SIZE);
+        }
+    }
+
+    genFetchUrl(key){
+        return URL+key;
+    }
+
+    renderItem(item){
+        return ViewUtil.getListItem(()=>this.onClick(item),item);
+    }
+
+    onClick(item){
+        // NavigationUtil.GoPage(item,'HealthSightDetail');
+    }
+
+    genIndicator(){
+        return this.getDataStore().hideLoadingMore?null:
+            <View style={styles.indicatorContainer}>
+                <ActivityIndicator style={styles.indicator}/>
+                <Text>正在加载更多</Text>
+            </View>
+    }
+
+    getDataStore(){
+        const {healthsightupdate} = this.props;
+        let dataStore = healthsightupdate[this.diseaseSortName];
+        if(!dataStore){
+            dataStore = {
+                items:[],
+                isLoading:false,
+                projectModes:[],//要显示的数据
+                hideLoadingMore:true,
+            }
+        }
+        return dataStore;
     }
 
     showCamera(){
@@ -95,8 +170,40 @@ export default class HealthSightUpdatePage extends Component<Props> {
     }
 
     render() {
+        let dataStore = this.getDataStore();
         return (
             <View style={styles.container}>
+                <FlatList
+                    data={dataStore.projectModes}
+                    renderItem={({item})=>this.renderItem(item)}
+                    keyExtractor={item=>item.id+""}
+                    refreshControl={
+                        <RefreshControl
+                            title={'Loading'}
+                            titleColor={REFRESH_TITLE_COLOR}
+                            colors={[REFRESH_COLOR]}
+                            refreshing={dataStore.isLoading}
+                            onRefresh={()=>this.loadData(false)}
+                            tintColor={REFRESH_TINT_COLOR}
+                        />
+                    }
+                    ListFooterComponent={()=>this.genIndicator()}
+                    onEndReached={()=>{
+                        console.log('----onEndReached----')
+                        //这里有个bug就是上拉一次多次触发这个方法,onMomentumScrollBegin也是为了解决这个Bug
+                        setTimeout(()=>{
+                            if (this.canLoadMore){
+                                this.loadData(true);
+                                this.canLoadMore=false;
+                            }
+                        },100);
+                    }}
+                    onEndReachedThreshold={0.5}
+                    onMomentumScrollBegin={()=>{
+                        this.canLoadMore = true;
+                        console.log('----onMomentumScrollBegin----')
+                    }}
+                />
                 <Overlay
                     isVisible={this.state.isVisible}
                     width={0.8*WINDOW_WIDTH}
@@ -171,10 +278,22 @@ export default class HealthSightUpdatePage extends Component<Props> {
                         isVisible: !prestate.isVisible,
                     }))}
                 />
+                <Toast ref={'toast'} position={'center'}/>
             </View>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    healthsightupdate: state.healthsightupdate,
+});
+
+const mapDispatchToProps = dispatch=>({
+    onLoadHealthSightUpdateData:(doctorid,url,pageSize)=>dispatch(actions.onLoadHealthSightUpdateData(doctorid,url,pageSize)),
+    onLoadMoreHealthSightUpdateData: (doctorid,pageIndex,pageSize,dataArray,callBack)=>dispatch(actions.onLoadMoreHealthSightUpdateData(doctorid,pageIndex,pageSize,dataArray,callBack)),
+});
+
+export const HealthSightUpdatePageWithRedux = connect(mapStateToProps,mapDispatchToProps)(HealthSightUpdatePage);
 
 const styles = StyleSheet.create({
     container: {

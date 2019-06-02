@@ -1,15 +1,14 @@
 import {createBottomTabNavigator,createAppContainer} from 'react-navigation';
 import React, {Component} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import DoctorCurePage from "../pages/User/DoctorCure/DoctorCurePage";
 import DoctorInfoPage from "../pages/Doctor/DoctorInfo/DoctorInfoPage";
-import HealthSightUpdatePage from "../pages/Doctor/HealthSightUpdate/HealthSightUpdatePage";
+import {HealthSightUpdatePageWithRedux} from "../pages/Doctor/HealthSightUpdate/HealthSightUpdatePage";
 import PatientCurePage from "../pages/Doctor/PatientCure/PatientCurePage";
 
 
 const Tabs = {
     HealthSightUpdatePage:{
-        screen:HealthSightUpdatePage,
+        screen:HealthSightUpdatePageWithRedux,
         navigationOptions: {
             tabBarLabel:'健康',
             tabBarIcon:(tintColor,focused)=>(

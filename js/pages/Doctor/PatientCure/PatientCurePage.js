@@ -34,7 +34,7 @@ export default class PatientCurePage extends Component<Props> {
     }
 
     onClick(item){
-        // NavigationUtil.GoPage(item,'DoctorCureDetail');
+        NavigationUtil.GoPage(item,'PatientCureTalk');
     }
 
     render() {

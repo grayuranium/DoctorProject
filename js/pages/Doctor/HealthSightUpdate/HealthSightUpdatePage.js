@@ -159,13 +159,11 @@ class HealthSightUpdatePage extends Component<Props> {
                 this.setState(prevState=>({
                     isVisible:!prevState.isVisible
                 }))
-            }else if(responseData.status===0){
-                throw new Error ('Password is wrong.')
-            }else {
-                throw new Error ('User do not exist.')
+            }else{
+                throw new Error('Response status is wrong.')
             }
         }).catch((error)=>{
-            this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
+            this.refs.toast.show('ERROR:'+error.toString());
         })
     }
 

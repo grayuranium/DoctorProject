@@ -80,7 +80,6 @@ export default class HealthReportForm extends Component<Props> {
 
     renderMultipleRadioOption = (option, selected, onSelect, index)=>{
         const style = selected ? { fontWeight: 'bold', marginRight:10, fontSize:16} : {marginRight:10, fontSize:16};
-
         return (
             <TouchableWithoutFeedback onPress={onSelect} key={index}>
                 <Text style={style}>{option}</Text>
@@ -227,30 +226,54 @@ export default class HealthReportForm extends Component<Props> {
                         {this.onMultipleRadioItemRender('身体状况：',BODY_STATES_OPTIONS,'bodyStatesOption')}
                         {this.onMultipleRadioItemRender('心情：',SENCE_STATES_OPTIONS,'senceStatesOption')}
                         <TouchableOpacity onPress={()=>{
-                            // let data = {
-                            //     weight:this.state.weight,
-                            //     height:this.state.height,
-                            //     foodCalory:this.state.foodCalory,
-                            //     waterOfCup:this.state.waterOfCup,
-                            //     sleepHour:this.state.sleepHour,
-                            //     sportsStep:this.state.sportsStep,
-                            //     dabianTimes:this.state.dabianTimes,
-                            //     tireTimes:this.state.tireTimes,
-                            //     sighTimes:this.state.sighTimes,
-                            //     eatBreakfastOption:this.state.eatBreakfastOption,
-                            //     skinDryOption:this.state.skinDryOption,
-                            //     nerverousOption:this.state.nerverousOption,
-                            //     sentimantOption:this.state.sentimantOption,
-                            //     sweatOption:this.state.sweatOption,
-                            //     bodyStatesOption:this.state.bodyStatesOption,
-                            //     senceStatesOption:this.state.senceStatesOption,
-                            //     urineColor: (new tinycolor(this.state.urineColor)).toHsvString(),
-                            //     lipColor: (new tinycolor(this.state.lipColor)).toHsvString(),
-                            // };
-                            // if (DataUploadUtil.uploadHealthData(data,URL)){
-                            //     this.refs.toast.show('上传成功');
-                            // }
-                            this.refs.toast.show('上传成功');
+                            let time_now = new Date().getTime();
+                            let postData = {
+                                userid:global.userinfo.id,
+                                hrfoodcalories:parseFloat(this.state.foodCalory),//f
+                                hrwaterintaked:parseFloat(this.state.waterOfCup),//f
+                                hrweight:parseFloat(this.state.weight),//f
+                                hrheight:parseFloat(this.state.height),//f
+                                hrsleepingtime:parseFloat(this.state.sleepHour),//f
+                                hrstepcnt:Number(this.state.sportsStep),
+                                hrbowelmovcnt:Number(this.state.dabianTimes),
+                                hrfatiguecnt:Number(this.state.tireTimes),
+                                hrsighcnt:Number(this.state.sighTimes),
+                                hreatbreakfast:this.state.eatBreakfastOption,
+                                hrdryorsplit:this.state.skinDryOption,
+                                hrtension:this.state.nerverousOption,
+                                hrsentimental:this.state.sentimantOption,
+                                hrsweating:SWEAT_OPTIONS[this.state.sweatOption],
+                                hrselffeeling:BODY_STATES_OPTIONS[this.state.bodyStatesOption],
+                                hrhappiness:SENCE_STATES_OPTIONS[this.state.senceStatesOption],
+                                hrurinecolor: (new tinycolor(this.state.urineColor)).toHsvString(),
+                                hrlipcolor: (new tinycolor(this.state.lipColor)).toHsvString(),
+                                hrinfodate:time_now,
+                                hrstoolimg:'0',
+                                hrurineimg:'0',
+                            };
+                            let json_data = JSON.stringify(postData)
+                            fetch('http://'+global.service.local_url+':8080/EfficientDr/userAddHealthRecordVerif',{
+                                method:'POST',
+                                headers:{
+                                    'Content-Type':'application/json;charset=UTF-8',
+                                    'Cookie':global.cookies.cookie,
+                                },
+                                body:json_data,
+                            }).then((response)=>{
+                                if (response.ok){
+                                    return response.json();
+                                }
+                                throw new Error ('Network response was not ok.');
+                            }).then((responseData)=>{
+                                if (responseData.status===1){
+                                    const {navigation} = this.props;
+                                    navigation.goBack();
+                                }else{
+                                    throw new Error('Response status is wrong.')
+                                }
+                            }).catch((error)=>{
+                                this.refs.toast.show('ERROR:'+error.toString());
+                            })
                         }}>
                             <View style={[styles.item_container,{justifyContent:'center', margin:5,borderRadius: 40,backgroundColor:'blue'}]}>
                                 <Text style={{fontSize:18,color:'white'}}>提交</Text>

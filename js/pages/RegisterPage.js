@@ -177,6 +177,7 @@ export default class RegisterPage extends Component<Props> {
                             color='black'
                         />
                     }
+                    secureTextEntry={true}
                     onChangeText={text => {
                         this.setState({
                             userPsw: text,
@@ -194,6 +195,7 @@ export default class RegisterPage extends Component<Props> {
                             color='black'
                         />
                     }
+                    secureTextEntry={true}
                     onChangeText={() => this.checkPassword()}
                     containerStyle={styles.item_container}
                     inputStyle={styles.textInputStyle}

@@ -7,6 +7,8 @@ import {DOCTOR_OFFICE_MENU} from "../../../res/data/DoctorOfficeMenuData";
 import NaviBar from 'react-native-pure-navigation-bar';
 
 type Props = {};
+const Dimensions = require('Dimensions');
+const {width,height} = Dimensions.get('window');
 export default class DoctorCureDetail extends Component<Props> {
     constructor(props){
         super(props);
@@ -28,17 +30,18 @@ export default class DoctorCureDetail extends Component<Props> {
                     title='医生信息'
                 />
                 <View style={styles.container}>
-                    <Text>{this.dname}</Text>
-                    <Text>{this.dhospital}</Text>
-                    <Text>{this.dhospitaldepartment}</Text>
-                    <Text>{this.dtitle}</Text>
-                    <Text>{this.dphonenum}</Text>
+                    <Text style={styles.doc_name}>姓名：{this.dname}</Text>
+                    <Text style={styles.doc_dtitle}>职称：{this.dtitle}</Text>
+                    <Text style={styles.doc_hospital}>所属医院：{this.dhospital}</Text>
+                    <Text style={styles.doc_dhospitaldepartment}>所属科室：{this.dhospitaldepartment}</Text>
+                    <Text style={styles.doc_dphonenum}>联系电话：{this.dphonenum}</Text>
                     <Button
                         title={'开始问诊'}
                         type={'solid'}
                         onPress={()=>{
                             NavigationUtil.GoPage({onlineTocken:this.onlineTocken,dname:this.dname},'DoctorCureTalk');
                         }}
+                        buttonStyle={{width:0.8*width, marginLeft:0.1*width}}
                     />
                 </View>
             </View>
@@ -49,12 +52,32 @@ export default class DoctorCureDetail extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        alignItems: 'flex-start',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
+    },
+    doc_name:{
+        fontSize: 20,
+        margin:10,
+    },
+    doc_hospital:{
+        fontSize: 20,
+        margin:10,
+    },
+    doc_dhospitaldepartment:{
+        fontSize: 20,
+        margin:10,
+    },
+    doc_dtitle:{
+        fontSize: 20,
+        margin:10,
+    },
+    doc_dphonenum:{
+        fontSize: 20,
+        margin:10,
     },
 });

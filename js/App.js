@@ -25,6 +25,10 @@ InnerNaviBar.defaultProps.autoHardwareBack = true;
 InnerNaviBar.defaultProps.disableLock = true;
 //返回按钮文本
 InnerNaviBar.defaultProps.gobackText = '返回';
+//启用分割线
+InnerNaviBar.defaultProps.hasSeperatorLine=true;
+//标题居中
+InnerNaviBar.defaultProps.titleCenter=true;
 
 type Props = {};
 export default class App extends Component<Props> {

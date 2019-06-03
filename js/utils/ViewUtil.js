@@ -132,10 +132,9 @@ export default class ViewUtil {
             onPress={callBack}
         >
             <View style={styles.list_cell_container}>
-                <Text>{item.dname}</Text>
-                <Text>{item.dtitle}</Text>
-                <Text>{item.dhospital}</Text>
-                <Text>{DOCTOR_OFFICE_MENU[item.dhospitaldepartmentid-1].name}</Text>
+                <Text>姓名：{item.dname}</Text>
+                <Text>职称：{item.dtitle}</Text>
+                <Text>所属医院：{item.dhospital}</Text>
             </View>
         </TouchableOpacity>;
     }
@@ -152,8 +151,8 @@ export default class ViewUtil {
             onPress={callBack}
         >
             <View style={styles.list_cell_container}>
-                <Text>{item.senderaccid}</Text>
-                <Text>{item.content}</Text>
+                <Text>用户：{item.senderaccid}</Text>
+                <Text>消息：{item.content}</Text>
             </View>
         </TouchableOpacity>;
     }
@@ -176,17 +175,15 @@ export default class ViewUtil {
                 <Text style={styles.list_description}>
                     {item.dscontent}
                 </Text>
-                <View style={styles.list_row}>
-                    <Text>Image:</Text>
-                    <Image
-                        style={{height:22,width:22}}
-                        source={{uri:item.dsimgurl}}
-                    />
-                </View>
-                <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                    <Text>Doctor:</Text>
-                    <Text>{item.dsdoctorname}</Text>
-                </View>
+                <Image
+                    style={{height:100,width:200}}
+                    source={{uri:item.dsimgurl}}
+                />
+                <Text style={{textAlign: 'right'}}>{item.dsdoctorname}</Text>
+                {/*<View style={{flexDirection:'row',justifyContent:'space-between'}}>*/}
+                    {/*<Text>Doctor:</Text>*/}
+                    {/*<Text>{item.dsdoctorname}</Text>*/}
+                {/*</View>*/}
             </View>
         </TouchableOpacity>;
     }
@@ -267,11 +264,12 @@ const styles = StyleSheet.create({
         color: '#212121',
     },
     list_cell_container:{
+        width:0.9*width,
         backgroundColor:'white',
         padding:10,
         marginLeft:5,
         marginRight:5,
-        marginVertical:3,
+        marginVertical:6,
         borderColor:'#dddddd',
         borderWidth:0.5,
         borderRadius:2,
@@ -287,14 +285,16 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     list_title:{
-        fontSize:16,
+        fontSize:20,
         marginBottom:2,
+        fontWeight:'300',
+        textAlign:'center',
         color:'#212121',
     },
     list_description:{
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 2,
-        color:'#212121',
+        color:'#5E5E5E',
     },
     intro_container:{
         width:0.9*width,

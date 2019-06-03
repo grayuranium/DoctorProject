@@ -13,6 +13,7 @@ import HealthReportForm from "../pages/User/HealthReport/HealthReportForm";
 import HealthReportShow from "../pages/User/HealthReport/HealthReportShow";
 import DoctorRegisterPage from "../pages/DoctorRegisterPage";
 import PatientCureTalk from "../pages/Doctor/PatientCure/PatientCureTalk";
+import HealthSightUpdateDetail from "../pages/Doctor/HealthSightUpdate/HealthSightUpdateDetail";
 
 const AppWelcomeNav = createStackNavigator({
     Login:{
@@ -87,6 +88,12 @@ const AppDoctorHomeNav = createStackNavigator({
         screen:DoctorHomePage,
         navigationOptions: {
             header: null,
+        },
+    },
+    HealthSightUpdateDetail:{
+        screen:HealthSightUpdateDetail,
+        navigationOptions:{
+            header:null,
         },
     },
     PatientCureTalk:{

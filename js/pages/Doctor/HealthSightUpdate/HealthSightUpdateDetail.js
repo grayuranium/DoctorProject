@@ -7,7 +7,7 @@ import {DOCTOR_OFFICE_MENU} from "../../../res/data/DoctorOfficeMenuData";
 type Props = {};
 const Dimensions = require('Dimensions');
 const {width,height} = Dimensions.get('window');
-export default class HealthSightDetail extends Component<Props> {
+export default class HealthSightUpdateDetail extends Component<Props> {
 
     constructor(props) {
         super(props);

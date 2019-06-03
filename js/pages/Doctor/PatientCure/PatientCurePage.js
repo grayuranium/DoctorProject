@@ -50,17 +50,12 @@ export default class PatientCurePage extends Component<Props> {
 
     render() {
         return (
-            <View style={{flex:1}}>
-                <NaviBar
-                    title='用户消息'
+            <View style={[styles.container,{justifyContent: 'center',}]}>
+                <FlatList
+                    data={this.state.data}
+                    renderItem={({item}) => this.renderItem(item)}
+                    keyExtractor={item=>item.id+""}
                 />
-                <View style={[styles.container,{justifyContent: 'center',}]}>
-                    <FlatList
-                        data={this.state.data}
-                        renderItem={({item}) => this.renderItem(item)}
-                        keyExtractor={item=>item.id+""}
-                    />
-                </View>
             </View>
         );
     }

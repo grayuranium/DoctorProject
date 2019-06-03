@@ -30,8 +30,9 @@ export default class LoginPage extends  Component {
     login(){
         //需要根据redux设计工具类
         // const {navigation} = this.props;
-        // navigation.navigate('AppDoctorHome');
+        // navigation.navigate('AppUserHome');
         //type:0-用户 1-医生
+
         const {navigation} = this.props;
         let postData = {
             accid:this.state.account,
@@ -149,6 +150,7 @@ export default class LoginPage extends  Component {
                                     color='black'
                                 />
                             }
+                            secureTextEntry={true}
                             inputStyle={styles.textInputStyle}
                             onChangeText={text=>this.setState({password:text})}
                             inputContainerStyle={[styles.textInputContainer,{marginTop:10}]}

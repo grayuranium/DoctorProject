@@ -79,7 +79,7 @@ class HealthSightUpdatePage extends Component<Props> {
     }
 
     onClick(item){
-        // NavigationUtil.GoPage(item,'HealthSightDetail');
+        NavigationUtil.GoPage(item,'HealthSightUpdateDetail');
     }
 
     genIndicator(){
@@ -268,6 +268,15 @@ class HealthSightUpdatePage extends Component<Props> {
                         type="solid"
                         onPress={()=>this.updateArticle()}
                     />
+                    <Button
+                        title="取消"
+                        type="outline"
+                        onPress={()=>{
+                            this.setState(prevState=>({
+                                isVisible:!prevState.isVisible
+                            }));
+                        }}
+                    />
                 </Overlay>
                 <Button
                     title="发送健康圈消息"
@@ -275,6 +284,7 @@ class HealthSightUpdatePage extends Component<Props> {
                     onPress={()=>this.setState(prestate=>({
                         isVisible: !prestate.isVisible,
                     }))}
+                    buttonStyle={{width:0.9*WINDOW_WIDTH, marginTop:10, marginBottom:10, marginLeft:5, marginRight:5}}
                 />
                 <Toast ref={'toast'} position={'center'}/>
             </View>

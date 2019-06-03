@@ -80,9 +80,9 @@ export default class DataStore {
         return new Promise((resolve,reject)=>{
             this.fetchLocalData(url)
                 .then((wrapData)=>{
-                    if (false){
+                    let mydata = wrapData;
+                    if (wrapData&&DataStore.checkTimestampValid(wrapData.timestamp)){
                         //本地已有数据，取本地数据
-                        //wrapData&&DataStore.checkTimestampValid(wrapData.timestamp)
                         resolve(wrapData);
                     }else {
                         //本地没有数据，从网上获取数据
@@ -119,7 +119,8 @@ export default class DataStore {
         TARGET_DATE.setTime(timestamp);
         if (CURRENT_DATE.getMonth()!==TARGET_DATE.getMonth()) return false;
         if (CURRENT_DATE.getDate()!==TARGET_DATE.getDate()) return false;
-        if (CURRENT_DATE.getHours()-TARGET_DATE.getHours()>4) return false;//有效期大于4小时
+        if (CURRENT_DATE.getHours()!==TARGET_DATE.getHours()) return false;
+        if (CURRENT_DATE.getMinutes()-TARGET_DATE.getMinutes()>1) return false;//有效期大于1分钟
         return true;
     }
 }

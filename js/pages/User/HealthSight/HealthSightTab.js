@@ -48,7 +48,7 @@ class HealthSightTab extends Component<Props> {
                 items:[],
                 isLoading:false,
                 projectModes:[],//要显示的数据
-                hideLoadingMore:true,
+                hideLoadingMore:false,
             }
         }
         return dataStore;
@@ -67,11 +67,11 @@ class HealthSightTab extends Component<Props> {
     }
 
     genIndicator(){
-        return this.getDataStore().hideLoadingMore?null:
+        return this.getDataStore().hideLoadingMore?
             <View style={styles.indicatorContainer}>
                 <ActivityIndicator style={styles.indicator}/>
                 <Text>正在加载更多</Text>
-            </View>
+            </View>:null
     }
 
     render() {

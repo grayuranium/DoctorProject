@@ -1,5 +1,5 @@
 global.service = {
-    local_url:'192.168.43.174',
+    local_url:'192.168.1.109',
     remote_url:'',
 }
 

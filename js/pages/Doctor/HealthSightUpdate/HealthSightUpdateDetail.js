@@ -17,7 +17,7 @@ export default class HealthSightUpdateDetail extends Component<Props> {
         this.dsimgurl = dsimgurl
         this.dskeyword = dskeyword
         this.dstitle = dstitle
-        this.dslastupdatetstamp = dslastupdatetstamp.toString()
+        this.dslastupdatetstamp = DateUtil.getLocalTime(dslastupdatetstamp)
     }
 
     render() {

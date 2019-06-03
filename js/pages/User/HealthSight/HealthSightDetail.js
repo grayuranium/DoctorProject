@@ -13,6 +13,7 @@ InnerNaviBar.defaultProps.gobackText='返回';
 
 type Props = {};
 export default class HealthSightDetail extends Component<Props> {
+
     constructor(props) {
         super(props);
         const {dscontent,dsdoctorname,dsimgurl,dskeyword,dstitle,dslastupdatetstamp} = this.props.navigation.state.params;

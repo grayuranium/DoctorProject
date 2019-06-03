@@ -62,6 +62,9 @@ const AppUserHomeNav = createStackNavigator({
     },
     DoctorCureTalk:{
         screen:DoctorCureTalk,
+        navigationOptions: {
+            header: null,
+        },
     },
     HealthReportForm:{
         screen:HealthReportForm,

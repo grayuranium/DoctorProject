@@ -12,6 +12,7 @@ import {DoctorBottomTabContainer} from '../navigators/DoctorBottomTabNavigator'
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import NavigationUtil from "../utils/NavigationUtil";
 import BackPressComponent from "../common/Components/BackPressComponent";
+import {NavigationActions} from "react-navigation";
 
 type Props = {};
 export default class DoctorHomePage extends Component<Props> {
@@ -19,6 +20,7 @@ export default class DoctorHomePage extends Component<Props> {
         super(props);
         const {navigation} = this.props;
         NavigationUtil.navigation = navigation;
+        this.backPress = new BackPressComponent({backPress:this.onBackPress});
     }
 
     componentWillMount(){
@@ -38,6 +40,27 @@ export default class DoctorHomePage extends Component<Props> {
             //连接被关闭
             console.log('连接关闭！');
         }
+    }
+
+    componentDidMount(){
+        this.backPress.componentDidMount();
+    }
+
+    componentWillUnmount(){
+        this.backPress.componentWillUnmount();
+    }
+
+    /**
+     * 处理物理按键事件,返回homepage
+     * @returns {boolean}
+     */
+    onBackPress = ()=>{
+        const {nav} = this.props;
+        if (nav.routes[2].index===0){
+            return false;//这里有BUG
+        }
+        this.props.navigation.dispatch(NavigationActions.back());
+        return true;
     }
 
     render() {

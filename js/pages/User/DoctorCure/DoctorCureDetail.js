@@ -37,7 +37,7 @@ export default class DoctorCureDetail extends Component<Props> {
                         title={'开始问诊'}
                         type={'solid'}
                         onPress={()=>{
-                            NavigationUtil.GoPage({doctorid:this.doctorid,onlineTocken:this.onlineTocken},'DoctorCureTalk');
+                            NavigationUtil.GoPage({onlineTocken:this.onlineTocken,dname:this.dname},'DoctorCureTalk');
                         }}
                     />
                 </View>

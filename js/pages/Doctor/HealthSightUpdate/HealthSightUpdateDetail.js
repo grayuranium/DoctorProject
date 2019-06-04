@@ -30,7 +30,7 @@ export default class HealthSightUpdateDetail extends Component<Props> {
                     <Text style={styles.doc_title}>{this.dstitle}</Text>
                     <Text style={styles.doc_keywords}>{this.dskeyword}</Text>
                     <Image
-                        source={{uri:this.dsimgurl}}
+                        source={{uri:'data:image/jpeg;base64,'+this.dsimgurl}}
                         style={styles.doc_img}
                     />
                     <Text style={styles.doc_content}>{this.dscontent}</Text>

@@ -47,6 +47,7 @@ class HealthSightUpdatePage extends Component<Props> {
             createStamp:'',
             updateStamp:'',
             keyword:'',
+            imgdata:'',
             avatarSource:'',
         };
     }
@@ -133,7 +134,7 @@ class HealthSightUpdatePage extends Component<Props> {
         let time = new Date().getTime().toString();
         let postData = {
             dsdoctorid:id,
-            dsimgurl:this.state.avatarSource,
+            dsimgurl:this.state.imgdata,
             dscreatetstamp:time,
             dslastupdatetstamp:time,
             dskeyword:this.state.keyword,

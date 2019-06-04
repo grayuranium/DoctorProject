@@ -177,7 +177,7 @@ export default class ViewUtil {
                 </Text>
                 <Image
                     style={{height:100,width:200}}
-                    source={{uri:item.dsimgurl}}
+                    source={{uri:'data:image/jpeg;base64,'+item.dsimgurl}}
                 />
                 <Text style={{textAlign: 'right'}}>{item.dsdoctorname}</Text>
                 {/*<View style={{flexDirection:'row',justifyContent:'space-between'}}>*/}

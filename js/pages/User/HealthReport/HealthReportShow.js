@@ -14,6 +14,52 @@ export default class HealthReportShow extends Component<Props> {
         };
     }
 
+    componentDidMount(){
+        this.loadData(this.state.timeSpan.searchText);
+    }
+
+    loadData(timespan){
+        // fetch('http://'+global.service.local_url+':8080/EfficientDr/login',{
+        //     method:'POST',
+        //     credentials:'include',
+        //     headers:{
+        //         'Content-Type':'application/json;charset=UTF-8',
+        //     },
+        //     body:json_data,
+        // }).then((response)=>{
+        //     if (response.ok){
+        //         return response.json();
+        //     }
+        //     throw new Error ('Network response was not ok.');
+        // }).then((responseData)=>{
+        //     if (responseData.status===1){
+        //         global.cookies.cookie = responseData.cookie.toString();
+        //         return responseData.InfoKey;
+        //     }else if(responseData.status===0){
+        //         throw new Error ('Password is wrong.')
+        //     }else {
+        //         throw new Error ('User do not exist.')
+        //     }
+        // }).then((info)=>{
+        //     if (this.state.type==0){
+        //         global.userinfo.accid = info.uaccid;
+        //         global.userinfo.name = info.uname;
+        //         global.userinfo.id = info.userid;
+        //         global.userinfo.phonenum = info.uphonenum;
+        //     } else {
+        //         global.doctorinfo.accid = info.daccid;
+        //         global.doctorinfo.id = info.doctorid;
+        //         global.doctorinfo.phonenum = info.dphonenum;
+        //         global.doctorinfo.hospital = info.dhospital;
+        //         global.doctorinfo.headpho = info.dheadpho;
+        //         global.doctorinfo.hospitaldepartmentid = info.dhospitaldepartmentid;
+        //     }
+        //     navigation.navigate(this.state.type==0?'AppUserHome':'AppDoctorHome');
+        // }).catch((error)=>{
+        //     this.refs.toast.show('ERROR:'+error.toString()+'请重新登录');
+        // })
+    }
+
     renderTitleView(){
         return <View>
             <TouchableOpacity

@@ -15,7 +15,7 @@ export function onLoadHealthSightData(diseaseSortName,url, pageSize) {
         });
         let DataStore = new DataStorageUtil();
         //异步action
-        DataStore.fetchData(url)
+        DataStore.fetchData(url,true)
             .then(data=>{
                 //数据加载成功
                 let fixItems = new Array();

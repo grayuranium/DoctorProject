@@ -66,7 +66,7 @@ export default function (state = defaultState,action) {
                 ...state,
                 [action.doctorid]:{
                     ...state[action.doctorid],
-                    hideLoadingMore:true,
+                    hideLoadingMore:false,
                     pageIndex:action.pageIndex,
                 }
             }

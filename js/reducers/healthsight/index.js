@@ -66,7 +66,7 @@ export default function (state = defaultState,action) {
                 ...state,
                 [action.diseaseSortName]:{
                     ...state[action.diseaseSortName],
-                    hideLoadingMore:true,
+                    hideLoadingMore:false,
                     pageIndex:action.pageIndex,
                 }
             }

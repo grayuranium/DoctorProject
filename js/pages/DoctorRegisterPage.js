@@ -188,6 +188,7 @@ export default class DoctorRegisterPage extends Component<Props> {
                             doctorPsw: text,
                         })
                     }}
+                    secureTextEntry={true}
                     containerStyle={styles.item_container}
                     inputStyle={styles.textInputStyle}
                 />

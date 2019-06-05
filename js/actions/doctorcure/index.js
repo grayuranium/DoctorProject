@@ -15,7 +15,7 @@ export function onLoadDoctorCureData(officeName,url, pageSize) {
         });
         let DataStore = new DataStorageUtil();
         //异步action
-        DataStore.fetchData(url)
+        DataStore.fetchData(url,false)
             .then(data=>{
                 //数据加载成功
                 let outFixItems = new Array();

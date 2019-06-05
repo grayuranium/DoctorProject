@@ -90,10 +90,10 @@ export default class DoctorInfoPage extends Component<Props> {
                             height: AVATAR_SIZE
                         }}/>
                         <Text style={ styles.sectionSpeakerText }>
-                            Talks by Rich Hickey
+                            {global.doctorinfo.accid}
                         </Text>
                         <Text style={ styles.sectionTitleText }>
-                            CTO of Cognitec, Creator of Clojure
+                            {global.doctorinfo.hospital}
                         </Text>
                     </View>
                 )}

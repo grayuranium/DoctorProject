@@ -64,7 +64,7 @@ export default function (state = defaultState,action) {
                 ...state,
                 [action.officeName]:{
                     ...state[action.officeName],
-                    hideLoadingMore:true,
+                    hideLoadingMore:false,
                     pageIndex:action.pageIndex,
                 }
             }

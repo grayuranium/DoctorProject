@@ -90,10 +90,10 @@ export default class UserInfoPage extends Component<Props> {
                             height: AVATAR_SIZE
                         }}/>
                         <Text style={ styles.sectionSpeakerText }>
-                            Talks by Rich Hickey
+                            {global.userinfo.name}
                         </Text>
                         <Text style={ styles.sectionTitleText }>
-                            CTO of Cognitec, Creator of Clojure
+                            {global.userinfo.accid}
                         </Text>
                     </View>
                 )}

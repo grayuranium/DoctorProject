@@ -1,21 +1,70 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,Button,TouchableOpacity} from 'react-native';
 import NaviBar from 'react-native-pure-navigation-bar';
+import {Echarts, echarts} from 'react-native-secharts';
 import HealthReportShowDialog,{TimeSpans} from '../../../common/Components/HealthReportShowDialog'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 type Props = {};
 const THEME_COLOR = '#678';
+const Dimensions = require('Dimensions');
+const {width,height} = Dimensions.get('window');
+const OPTION = {
+    title: {
+        text: ''
+    },
+    tooltip: {},
+    legend: {
+        data: ['个人数据（Individual）', '平均数据（Average）']
+    },
+    radar: {
+        // shape: 'circle',
+        name: {
+            textStyle: {
+                color: '#fff',
+                backgroundColor: '#999',
+                borderRadius: 3,
+                padding: [3, 5]
+            }
+        },
+        indicator: [
+            { name: '饮水（water）', max: 10},
+            { name: '睡眠（sleep）', max: 10},
+            { name: '运动（activity）', max: 10},
+            { name: '精力（energy）', max: 10},
+            { name: '心情（mood）', max: 10},
+            { name: '排泄（excretion）', max: 10}
+        ]
+    },
+    series: [{
+        name: '预算 vs 开销（Budget vs spending）',
+        type: 'radar',
+        // areaStyle: {normal: {}},
+        data : [
+            {
+                value : [4.3, 10, 2.8, 6, 7, 3.5],
+                name : '个人数据（Individual）'
+            },
+            {
+                value : [5, 9, 5, 5, 7, 4],
+                name : '平均数据（Average）'
+            }
+        ]
+    }]
+};
 export default class HealthReportShow extends Component<Props> {
     constructor(props){
         super(props);
         this.state = {
             timeSpan:TimeSpans[0],
+            isshow:false,
         };
     }
 
     componentDidMount(){
-        this.loadData(this.state.timeSpan.searchText);
+        setTimeout(()=>this.setState({
+            isshow:true,
+        }),2000);
     }
 
     loadData(timespan){
@@ -98,9 +147,17 @@ export default class HealthReportShow extends Component<Props> {
                 <NaviBar
                     title={this.renderTitleView()}
                 />
-                <View style={[styles.container,{justifyContent: 'center',}]}>
-                    <Text style={styles.welcome}>welcome to HealthReportShow!</Text>
-                </View>
+                {this.state.isshow?<View style={styles.container}>
+                    <View style={{marginBottom:10}}>
+                        <Text style={styles.title}>您属于({global.userhealthtype})类型人群</Text>
+                        <Text style={styles.sub_title}>此类型人群的平均体质与您的体质数据如下</Text>
+                    </View>
+                    <View style={{marginBottom:10}}>
+                        <Text style={styles.content}>平均身高：{global.grouphealthdata.height}cm</Text>
+                        <Text style={styles.content}>平均体重：{global.grouphealthdata.weight}kg</Text>
+                    </View>
+                    <Echarts option={OPTION} height={400} width={width}/>
+                </View>:null}
                 {this.renderDialog()}
             </View>
         );
@@ -110,12 +167,26 @@ export default class HealthReportShow extends Component<Props> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
+        justifyContent:'flex-start',
+        alignItems: 'flex-start',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
+    },
+    title:{
+        fontSize:24,
+        fontWeight:'bold',
+    },
+    sub_title:{
+        fontSize:18,
+        fontWeight:'normal',
+        fontStyle:'italic',
+    },
+    content:{
+        fontSize:18,
+        fontWeight:'normal',
     },
 });

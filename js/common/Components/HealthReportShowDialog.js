@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {Modal,ViewPropTypes,View,StatusBar,StyleSheet,Text,Platform,TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import TimeSpan from '../../model/TimeSpan'
-export const TimeSpans = [new TimeSpan('今天','today'),new TimeSpan('本周','thisweek'),new TimeSpan('本月','thismonth')];
+export const TimeSpans = [new TimeSpan('上周','lastweek'),new TimeSpan('上月','lastmonth'),new TimeSpan('去年','lastyear')];
 
 /**
  * 导航栏上下拉的自定义控件
